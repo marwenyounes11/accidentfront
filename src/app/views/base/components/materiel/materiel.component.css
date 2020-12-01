@@ -1,0 +1,17 @@
+.l{
+    margin-bottom: 10px;
+}
+.t{
+    margin-top: 10px;
+}
+
+ngb-tabset{
+    overflow: scroll;
+    width: 1400px;
+}
+
+table{
+  
+    widows: 700px;
+}
+

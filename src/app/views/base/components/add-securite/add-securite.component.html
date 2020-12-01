@@ -1,0 +1,32 @@
+
+    <div>
+      <h1>{{pageTitle}}</h1>
+    </div>
+  
+        <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Type</label>
+            <select formControlName="type">
+              <option value="protection civile">
+                protection civile
+              </option>
+              <option value="union securite">
+                union securite
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label>Adresse</label>
+            <input  type="text" placeholder="taper l'adresse" formControlName="adress" id="adress">
+          </div>
+          <div class="form-group">
+            <label>id Source inform  </label>
+            <select id="idsourceinform" formControlName="idsourceinform" class="form-control">
+              <option *ngFor="let s of  sourceinforms._embedded.sourceInforms" [value]="s.id">{{s.lastName}}</option>
+            </select>
+        </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-dark"> Submit</button>
+            <button type="reset" class="btn btn-dark">Annuler</button>
+          </div>
+        </form>

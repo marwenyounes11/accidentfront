@@ -1,0 +1,42 @@
+
+            <div>
+              <h1>{{pageTitle}}</h1>
+            </div>
+      
+            <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">    
+              <div class="form-group">
+                <label>number </label>
+                <input type="number" class="form-control" formControlName="number" id="number"   >
+              </div>
+              <div class="form-group">
+                <label>Date Huissier </label>
+                <input type="date" class="form-control" formControlName="dateHuissier" id="dateHuissier"   >
+              </div>
+              <div class="form-group">
+                <label>heure Huissier </label>
+                <input type="time" class="form-control" formControlName="heureHuissier" id="heureHuissier"   >
+              </div>
+              <div class="form-group">
+                <label> Accident  </label>
+                <select id="idaccident" formControlName="idaccident" class="form-control">
+                  <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+                </select>
+             </div>
+             <div class="form-group">
+              <label>source declare huissier  </label>
+              <select id="idsourcedeclarehuissier" formControlName="idsourcedeclarehuissier" class="form-control">
+                <option *ngFor="let d of  sourcedeclarehuissiers._embedded.sourceDeclareHuissiers" [value]="d.id">{{d.name}}</option>
+              </select>
+             </div>
+             <div class="form-group">
+              <label>Securite  </label>
+              <select id="idsecurite" formControlName="idsecurite" class="form-control">
+                <option *ngFor="let d of  securites._embedded.securites" [value]="d.id">{{d.adress}}</option>
+              </select>
+             </div>
+              <div class="form-group">
+                <button type="submit" class="btn btn-dark"> Submit</button>
+                <button type="reset" class="btn btn-dark">Annuler</button>
+              </div>
+            </form>
+    

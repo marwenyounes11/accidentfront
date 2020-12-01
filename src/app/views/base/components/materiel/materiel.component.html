@@ -1,0 +1,221 @@
+<ngb-tabset>
+  <ngb-tab title="Extincteur">
+<ng-template   #contentModal let-c="close" let-d="dismiss">
+  <div class="modal-dialog modal-lg">
+  <div class="modal-header">
+      <h4 class="modal-title" id="modal-primary-title">Title</h4>
+      <button type="button" class="close" aria-label="Close" (click)="d('Cross click')">
+        <span aria-hidden="true">&times;</span>
+      </button>
+  </div>
+  <div  class="modal-body centered">
+   
+  </div>
+</div>
+</ng-template>
+
+    <ng-template ngbTabContent>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openExtincteur()">
+            <i class="fa fa-plus"></i>Add Extincteur </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">sub type</th>
+        <th scope="col">image</th>
+        <th scope="col">moyen transport</th>
+        <th scope="col">depot</th>
+        <th scope="col">departement</th>
+        <th scope="col">emplacement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+      <tbody *ngIf="extincteurs">
+          <tr *ngFor="let item of extincteurs">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>{{item.subtype}}</td>
+            <td>
+              <a href="#"><img class="card-img-top img-responsive"
+                src = "{{'http://localhost:8989/Imge/materiel/'+item.id}}" 
+                style = "height :200px;width:fil-content"
+               alt=""></a>
+            </td>
+            <td >{{item.moyentransport?item.moyentransport.id:''}}</td>
+            <td>{{item.depot?item.depot.id:''}}</td>
+            <td>{{item.departement?item.departement.id:''}}</td>
+            <td>{{item.emplacement}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectExtincteur(item.id)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Poteaux Incendie">
+    <ng-template ngbTabContent>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openPoteaux()">
+            <i class="fa fa-plus"></i>Add Poteaux </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">coleurpoteaux</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="poteauxincendies">
+          <tr *ngFor="let item of poteauxincendies">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img class="card-img-top img-responsive"
+                src = "{{'http://localhost:8989/Imge/materiel/'+item.id}}" 
+                style = "height :200px;width:fil-content"
+               alt=""></a>
+            </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.coleurpoteaux}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectPoteaux(item.id)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Robinet Incendie">
+    <ng-template ngbTabContent>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openRobinet()">
+            <i class="fa fa-plus"></i>Add Robinet </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">length</th>
+        <th scope="col">diametre</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="robinetincendies">
+          <tr *ngFor="let item of robinetincendies">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img class="card-img-top img-responsive"
+                src = "{{'http://localhost:8989/Imge/materiel/'+item.id}}" 
+                style = "height :200px;width:fil-content"
+               alt=""></a>
+            </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.length}}</td>
+            <td>{{item.diametre}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectRobinet(item.id)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Bouche Incendie">
+    <div>
+      Liste des equipements de lutte contre l'incendies
+    </div>
+    <ng-template ngbTabContent>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openBouche()">
+            <i class="fa fa-plus"></i>Add Bouche </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">nombrebouche</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="boucheincendies">
+          <tr *ngFor="let item of boucheincendies">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img class="card-img-top img-responsive"
+                src = "{{'http://localhost:8989/Imge/materiel/'+item.id}}" 
+                style = "height :200px;width:fil-content"
+               alt=""></a>
+            </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.nombrebouche}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectBouche(item.id)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

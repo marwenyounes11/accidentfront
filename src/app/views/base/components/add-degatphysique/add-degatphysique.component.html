@@ -1,0 +1,28 @@
+<div>
+  <h1>{{pageTitle}}</h1>
+    </div>
+ 
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   >
+      </div>
+      <div class="form-group">
+        <label>number Wounded </label>
+        <input type="number" class="form-control" formControlName="numberWounded" id="numberWounded"   >
+      </div>
+      <div class="form-group">
+        <label>number Dead </label>
+        <input type="number" class="form-control" formControlName="numberDead" id="numberDead"   >
+      </div>
+      <div class="form-group">
+          <label>id Accident  </label>
+          <select id="idAccident" formControlName="idAccident" class="form-control">
+            <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+     </div>
+    </form>

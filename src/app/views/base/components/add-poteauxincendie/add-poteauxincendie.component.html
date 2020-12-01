@@ -1,0 +1,59 @@
+
+    <div>
+      <h1>{{pageTitle}}</h1>
+    </div>
+ 
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   >
+      </div>
+      <div class="form-group">
+        <label>Number Serie </label>
+        <input type="text" class="form-control" formControlName="numberSerie" id="numberSerie"   >
+      </div>
+      <div class="form-group">
+        <label>Date Acquisition </label>
+        <input type="date" class="form-control" formControlName="dateAcquisition" id="dateAcquisition"   >
+      </div>
+      <div class="form-group">
+        <label>heure Acquisition </label>
+        <input type="time" class="form-control" formControlName="heureAcquisition" id="heureAcquisition"   >
+      </div>
+      <div class="form-group">
+        <label>Date Maintenance </label>
+        <input type="date" class="form-control" formControlName="dateMaintenance" id="dateMaintenance"   >
+      </div>
+      <div class="form-group">
+        <label>heure Maintenance </label>
+        <input type="time" class="form-control" formControlName="heureMaintenance" id="heureMaintenance"   >
+      </div>
+      <div class="form-group">
+        <label>Date Peremption </label>
+        <input type="date" class="form-control" formControlName="datePeremption" id="datePeremption"   >
+      </div>
+      <div class="form-group">
+        <label>heure Peremption </label>
+        <input type="time" class="form-control" formControlName="heurePeremption" id="heurePeremption"   >
+      </div>
+     
+      <div class="form-group">
+          <label>File Upload  </label>
+              <input type="file" accept="image/*" (change)="onSelectFile($event)">
+              <img [src]="imgURL" height="200" *ngIf="imgURL">
+      </div>
+  <div class="form-group">
+    <label>coleur poteaux </label>
+    <input type="text" class="form-control" formControlName="coleurpoteaux" id="coleurpoteaux">
+  </div>
+  <div class="form-group">
+    <label> departement</label>
+    <select id="iddepartement" formControlName="iddepartement" class="form-control">
+      <option *ngFor="let dp of  departements._embedded.departements" [value]="dp.id">{{dp.nameDepartement}}  </option>
+    </select>
+</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>

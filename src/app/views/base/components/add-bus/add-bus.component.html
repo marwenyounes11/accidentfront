@@ -1,0 +1,54 @@
+<div>
+  <h1>{{pageTitle}}</h1>
+    </div>
+ 
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label>Gage </label>
+        <input type="text" class="form-control" formControlName="gage" id="gage"   >
+      </div>
+      <div class="form-group">
+        <label>immatriculation </label>
+        <input type="text" class="form-control" formControlName="immatriculation" id="immatriculation"   >
+      </div>
+      <div class="form-group">
+        <label>mark </label>
+        <input type="text" class="form-control" formControlName="mark" id="mark"   >
+      </div>
+      <div class="form-group">
+        <label>model</label>
+        <input type="text" class="form-control" formControlName="model" id="model"   >
+      </div>
+      <div class="form-group">
+        <label>numTransport </label>
+        <input type="text" class="form-control" formControlName="numTransport" id="numTransport"   >
+      </div>
+      <div class="form-group">
+        <label>id agent </label>
+        <select id="idagent" formControlName="idagent" class="form-control">
+          <option *ngFor="let ag of  agents._embedded.agents" [value]="ag.id">{{ag.lastName}}</option>
+        </select>
+    </div>
+      <div class="form-group">
+          <label>id depot  </label>
+          <select id="iddepot" formControlName="iddepot" class="form-control">
+            <option *ngFor="let d of  depots._embedded.depots" [value]="d.id">{{d.nameDepot}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label>id district  </label>
+        <select id="iddistrict" formControlName="iddistrict" class="form-control">
+          <option *ngFor="let d of  districts._embedded.districts" [value]="d.id">{{d.nameDistrict}}</option>
+        </select>
+    </div>
+      <div class="form-group">
+        <label>id ligne  </label>
+        <select id="idligne" formControlName="idligne" class="form-control">
+          <option *ngFor="let l of  lignes._embedded.lignes" [value]="l.id">{{l.nameLigne}}</option>
+        </select>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>

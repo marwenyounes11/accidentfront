@@ -1,0 +1,46 @@
+<div>
+    Liste Degats Materiels
+  </div>
+  <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+      
+              <a class="btn btn-sm btn-success text-white pull-right" routerLink="/base/adddegatmateriel">
+                  <i class="fa fa-plus"></i>Add Degat Materiel </a>
+       
+  </div>
+
+<div class="pricing-header mx-auto ">
+ <div class="table-responsive">
+  <table class="table table-bordered table-responsive-sm table-responsive-md
+ table-responsive-lg t">
+  <thead>
+  <tr>
+    
+	
+  
+  <th scope="col">Value </th>
+  <th scope="col">Description</th>
+  <th scope="col">Type</th>
+  <th scope="col">Accident</th>
+  <th colspan="2">
+    Action
+  </th>
+  </tr>
+  </thead>
+  <tbody>
+
+
+  <tr *ngFor="let item of degatmateriels ">
+  <td>{{item.value}}</td>
+  <td>{{item.type}}</td>
+  <td>{{item.description}}</td>
+  <td>{{item.accident.id}}</td>
+  <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectData(item)" [routerLink]="['/base/editdegatmateriel', item.id, 'edit']">
+    <i class="fa fa-pencil-square-o" ></i></button></td>
+ <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+    <i class="fa fa-trash-o"></i></button></td>
+     </tr>
+       </tbody>
+       </table>
+       </div>
+     </div>
+

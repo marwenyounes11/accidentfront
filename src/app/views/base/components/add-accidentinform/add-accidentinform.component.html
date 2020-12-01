@@ -1,0 +1,34 @@
+<div>
+  <h1>{{pageTitle}}</h1>
+    </div>
+ 
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label>id Accident  </label>
+          <select id="idaccident" formControlName="idaccident" class="form-control">
+            <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+          </select>
+      </div>
+      <div class="form-group">
+        <label>id Source inform  </label>
+        <select id="idsourceinform" formControlName="idsourceinform" class="form-control">
+          <option *ngFor="let s of  sourceinforms._embedded.sourceInforms" [value]="s.id">{{s.lastName}}</option>
+        </select>
+    </div>
+    <div class="form-group">
+      <label>Date Information </label>
+      <input type="date" class="form-control" formControlName="dateInformation" id="dateInformation"   >
+    </div>
+    <div class="form-group">
+      <label>heure  Information</label>
+      <input type="time" class="form-control" formControlName="heureInformation" id="heureInformation"   >
+    </div>
+    <div class="form-group">
+      <label>Description </label>
+      <input type="text" class="form-control" formControlName="description" id="description"   >
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>      
+      </div>
+    </form>

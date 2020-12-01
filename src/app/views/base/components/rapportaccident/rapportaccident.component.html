@@ -1,0 +1,98 @@
+<div class="container">
+  <div class="row"> 
+      <div class="col-md-3">
+          <ul *ngIf="accidents" class="list-group">
+              <li [ngClass]="a== currentAccident?'active':''" *ngFor="let a of accidents._embedded.accidents" class="list-group-item clickable" (click)="onGetAccidentInforms(a)">
+                  {{a.description}}
+              </li>
+          </ul>
+          
+      </div>
+      <div class="col-md-9">
+          <div class="panel panel-default">
+              <div class="panel-heading"><h2>Rapport sur l'information d'un accident/incident</h2></div>
+              <div class="panel-body">
+                <div class="pricing-header mx-auto ">
+                    <div ><h5>Données relatives aux informations des responsables de Transtu</h5>
+                        <div class="table-responsive content">
+                     <table class="table table-bordered table-responsive-sm table-responsive-md
+                    table-responsive-lg t">
+                     <thead>
+                     <tr>
+                    <th scope="col">Date Information</th>
+                    <th scope="col">Heure Information</th>
+                    <th scope="col">Fonction</th>
+                    <th scope="col">Nom et Prenom</th>
+                    <th scope="col">telephone</th>
+                    <th scope="col">Source Information </th>
+                     <th scope="col">description</th>
+                     </tr>
+                     </thead>
+                     <tbody *ngIf ="agentTranstus">
+                     <tr  *ngFor="let item of agentTranstus._embedded.agentTranstus ">
+                    <td>{{dateInformation}}</td>
+                     <td>{{heureInformation}}</td>
+                     <td>{{item.function}}</td>
+                     <td>{{item.name}} {{item.lastName}}</td>
+                     <td>{{item.phone}}</td>
+                     <td>{{item.sourceinform.id}}</td>
+                     <td>{{description}}</td>
+                        </tr>
+                          </tbody>
+                          </table>
+                          </div>
+                    </div>
+                    <div ><h5>Données relatives aux informations des intérets de  sécurités et la protection civile</h5> 
+                     <div class="table-responsive content">
+                      <table class="table table-bordered table-responsive-sm table-responsive-md
+                 table-responsive-lg t">
+                  <thead>
+                  <tr>
+                    <th scope="col">Date Information</th>
+                    <th scope="col">Heure Information</th>
+                    <th scope="col">Unité</th>
+                     <th scope="col">description</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngIf ="securites">
+                  <tr *ngFor="let item of securites._embedded.securites ">
+                    <td>{{dateInformation}}</td>
+                    <td>{{heureInformation}}</td>
+                    <td>{{item.type}}</td>
+                    <td>{{description}}</td>
+                     </tr>
+                       </tbody>
+                       </table>
+                       </div>
+                    </div>
+                    <div ><h5>Données relatives aux informations des ambulanciers du transtu</h5> 
+                     <div class="table-responsive content">
+                      <table class="table table-bordered table-responsive-sm table-responsive-md
+                 table-responsive-lg t">
+                  <thead>
+                  <tr>
+                    <th scope="col">Date Information</th>
+                    <th scope="col">Heure Information</th>
+                    <th scope="col">Nom et Prenom</th>
+                    <th scope="col">telephone</th>
+                     <th scope="col">description</th>
+                  </tr>
+                  </thead>
+                  <tbody *ngIf ="ambulanciers">
+                    
+                  <tr *ngFor="let item of ambulanciers._embedded.ambulanciers ">
+                    <td>{{dateInformation}}</td>
+                    <td>{{heureInformation}}</td>
+                    <td>{{item.name}} {{item.lastName}}</td>
+                    <td>{{item.phone}}</td>
+                    <td>{{description}}</td>
+                     </tr>
+                       </tbody>
+                       </table>
+                       </div>
+                    </div>
+                  </div>
+             </div>
+      </div>
+  </div> 
+  </div>

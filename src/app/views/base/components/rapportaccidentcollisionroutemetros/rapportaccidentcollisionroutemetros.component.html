@@ -1,0 +1,142 @@
+<div class="container">
+  <div class="row"> 
+      <div class="col-md-3">
+          <ul *ngIf="accidents" class="list-group">
+              <li [ngClass]="a== currentAccident?'active':''" *ngFor="let a of accidentcollisions" class="list-group-item clickable" (click)="onGetAccidentInforms(a)">
+                  {{a.description}}
+              </li>
+          </ul>
+          
+      </div>
+      <div class="col-md-9">
+          <div class="panel panel-default">
+            <div class="panel-heading"><h2>Rapport sur l'information d'un accident/incident du route ou du collision (réseaux metros)</h2></div>
+              <div class="panel-body">
+                <div class="pricing-header mx-auto ">
+                    <div ><h5>Données relatives aux  source d'information</h5>
+                        <div class="table-responsive content">
+                     <table class="table table-bordered table-responsive-sm table-responsive-md
+                    table-responsive-lg t">
+                     <thead>
+                     <tr>
+                    <th scope="col">Nature</th>
+                    <th scope="col">telephone</th>
+                    <th scope="col">Nom et Prenom</th>
+                     </tr>
+                     </thead>
+                     <tbody>
+                     <tr *ngFor="let item of accidentInforms">
+                     <td>{{item.sourceinform.nature}}</td>
+                     <td>{{item.sourceinform.phone}}</td>
+                     <td>{{item.sourceinform.name}} {{item.sourceinform.lastName}}</td>
+                        </tr>
+                          </tbody>
+                          </table>
+                          </div>
+                    </div>
+
+                    <div ><h5>Données relatives aux  accident/incident</h5>
+                      <div class="table-responsive content">
+                   <table class="table table-bordered table-responsive-sm table-responsive-md
+                  table-responsive-lg t">
+                   <thead>
+                   <tr>
+                  <th scope="col">Chauffeur/Receveur</th>
+                  <th scope="col">Matricule</th>
+                  <th scope="col">Nom et Prenom</th>
+                  <th scope="col">telephone</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr *ngFor="let item of accidentTransports">
+                   <td>{{item.moyentransport.agent.type}}</td>
+                   <td>{{item.moyentransport.agent.matricule}}</td>
+                   <td>{{item.moyentransport.agent.name}} {{item.moyentransport.agent.lastName}}</td>
+                   <td>{{item.moyentransport.agent.phone}}</td>
+                      </tr>
+                        </tbody>
+                        </table>
+                        </div>
+                    </div>
+
+                     <div class="table-responsive content">
+                    <table class="table table-bordered table-responsive-sm table-responsive-md
+                   table-responsive-lg t">
+                    <thead>
+                    <tr>
+                   <th scope="col">Lieux</th>
+                   <th scope="col">Date Accident</th>
+                   <th scope="col">Heure Accident</th>
+                   <th scope="col">Sous Type Accident</th>
+                   <th scope="col">Numero Bus</th>
+                   <th scope="col">Ligne</th>
+                   <th scope="col">District</th>
+                   <th scope="col">Description</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let item of accidentTransports">
+                    <td>{{currentAccident.lieux.emplacement}}</td>
+                    <td>{{currentAccident.dateAccident}}</td>
+                    <td>{{currentAccident.heureAccident}}</td>
+                    <td>{{currentAccident.subType}}</td>
+                    <td>{{item.moyentransport.numTransport}}</td>
+                    <td>{{item.moyentransport.ligne.nameLigne}} </td>
+                    <td>{{item.moyentransport.district.nameDistrict}} </td>
+                    <td>{{currentAccident.description}}</td>
+                    </tr>
+                    </tbody>
+                    </table>
+                    </div>
+             
+                    
+                   
+                 <div class="table-responsive content">
+                   <table class="table table-bordered table-responsive-sm table-responsive-md
+                  table-responsive-lg t">
+                   <thead>
+                   <tr>
+                  <th scope="col">Degats</th>
+                  <th scope="col">Description</th>
+                   </tr>
+                   </thead>
+                   <tbody>
+                   <tr *ngFor="let item of degats">
+                   <td>{{item.type}}</td>
+                   <td>{{item.description}} </td>
+                    </tr>
+                    </tbody>
+                    </table>   
+                      </div>
+                  
+                      <div class="table-responsive content">
+                        <table class="table table-bordered table-responsive-sm table-responsive-md
+                       table-responsive-lg t">
+                        <thead>
+                        <tr>
+                       <th scope="col">Numero Huissiers</th>
+                       <th scope="col">Date Huissiers </th>
+                       <th scope="col">Heures Huissiers </th>
+                       <th scope="col">Securite </th>
+                       <th scope="col">Source Declare Huissiers </th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr *ngFor="let item of huissiers">
+                          <td>{{item.number}}</td>
+                          <td>{{item.dateHuissier}}</td>
+                          <td>{{item.heureHuissier}}</td>
+                          <td>{{item.securite.adress}}</td>
+                          <td>{{item.sourcedeclarehuissier.lastName}}</td>
+                         </tr>
+                         </tbody>
+                         </table>   
+                           </div>
+                   
+                </div>
+             </div>
+        </div>
+ 
+     
+    </div> 
+  </div>

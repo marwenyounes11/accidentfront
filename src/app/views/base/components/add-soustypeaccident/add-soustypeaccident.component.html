@@ -1,0 +1,27 @@
+     <div>
+      <h1>{{pageTitle}}</h1>
+      </div>
+
+   <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+    <div class="form-group"> 
+    <label>Label</label>
+       <input  type="text" placeholder="taper le label de sous type d'accident" formControlName="label" id="label">
+      </div> 
+       <div class="form-group">
+       <label>Alias</label>
+       <input  type="text" placeholder="taper l'alias de sous type d'accident" formControlName="alias" id="alias">
+      </div> 
+       <div class="form-group">
+        <label>id typeaccident  </label>
+        <select id="idtypeaccident" formControlName="idtypeaccident" class="form-control">
+          <option *ngFor="let d of  typeAccidents._embedded.typeAccidents" [value]="d.id">{{d.label}}</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+   
+   </form>
+
+

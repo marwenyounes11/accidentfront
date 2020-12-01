@@ -1,0 +1,46 @@
+<div>
+    Liste Source Infos
+  </div>
+  <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+      
+              <a class="btn btn-sm btn-success text-white pull-right" routerLink="/base/addsourceinfo">
+                  <i class="fa fa-plus"></i>Add Source Info </a>
+       
+  </div>
+
+<div class="pricing-header mx-auto ">
+ <div class="table-responsive">
+  <table class="table table-bordered table-responsive-sm table-responsive-md
+ table-responsive-lg t">
+  <thead>
+  <tr>
+    
+	
+  <th scope="col">Name</th>
+  <th scope="col">last Name</th>
+  <th scope="col">Nature</th>
+  <th scope="col">Phone </th>
+  <th colspan="2">
+    Action
+  </th>
+  </tr>
+  </thead>
+  <tbody>
+
+
+  <tr *ngFor="let item of sourceinform._embedded.sourceInforms ">
+  <td>{{item.name}}</td>
+  <td>{{item.lastName}}</td>
+  <td>{{item.nature}}</td>
+  <td>{{item.phone}}</td>
+  <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectData(item)" [routerLink]="['/base/editsourceinfo', item.id, 'edit']">
+    <i class="fa fa-pencil-square-o" ></i></button></td>
+ <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeData(item.id)">
+    <i class="fa fa-trash-o"></i></button></td>
+     </tr>
+       </tbody>
+       </table>
+       </div>
+     </div>
+
+
