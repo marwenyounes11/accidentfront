@@ -1,0 +1,60 @@
+<div class="container-fluide">
+<div class="row">
+  <div id="id1" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+    <div class="card ">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>{{pageTitle}}
+        <div class="card-header-actions">
+          <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+          <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+        </div>
+      </div>
+      <div (collapsed)="collapsed($event)"
+      (expanded)="expanded($event)"
+      [collapse]="isCollapsed1"
+      class="card-body">
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">  
+      <div class="form-group">
+        <label>name Departement </label>
+        <input type="text" class="form-control" formControlName="nameDepartement" id="nameDepartement"   [ngClass]="{ 'is-invalid': submitted && f.nameDepartement.errors }" />
+        <div *ngIf="submitted && f.nameDepartement.errors" class="invalid-feedback">
+            <div *ngIf="f.nameDepartement.errors.required"> Nom du Departement est obligatoire</div>
+            <div *ngIf="f.nameDepartement.errors.name">Nom du Departement doit etre en bon format </div>
+        </div>
+      </div>
+      <div class="form-group" id="e1">
+        <label> lieux </label>
+        <select id="idlieux" formControlName="idlieux" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f.idlieux.errors }">
+          <option *ngFor="let l of  lieuxAccidents" [value]="l.id">{{l.emplacement}}</option>
+        </select>
+        <div *ngIf="submitted && f.idlieux.errors" class="invalid-feedback">
+          <div *ngIf="f.idlieux.errors.required">id lieux est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+  </div>
+</div>
+</div>
+<div id="id2" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+<div class="card ">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i> Liste Departement
+    <div class="card-header-actions">
+      <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse2()"><i class={{iconCollapse}}></i></button>
+      <button type="button" class="card-header-action btn btn-link btn-close"(click)="close2()"><i class="icon-close"></i></button>
+    </div>
+  </div>
+  <div (collapsed)="collapsed($event)"
+  (expanded)="expanded($event)"
+  [collapse]="isCollapsed2"
+  class="card-body">
+    <app-departement [departements]="departements" [page1]="page1" [count1]="count1" [pageSize1]="pageSize1"></app-departement>
+  </div>
+</div>
+</div>
+</div>
+</div>

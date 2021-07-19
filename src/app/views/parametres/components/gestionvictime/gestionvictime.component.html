@@ -1,0 +1,103 @@
+<div class="container-fluide">
+<div class="row">
+  <div id="id1" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+    <div class="card ">
+      <div class="card-header">
+        <i class="fa fa-edit"></i>{{pageTitle}}
+        <div class="card-header-actions">
+          <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+          <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+        </div>
+      </div>
+      <div (collapsed)="collapsed($event)"
+      (expanded)="expanded($event)"
+      [collapse]="isCollapsed1"
+      class="card-body">
+        <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label> Name Victime</label>
+            <input  type="text" placeholder="taper le nom" formControlName="nameVictime" id="nameVictime"  [ngClass]="{ 'is-invalid': submitted && f.nameVictime.errors }" />
+            <div *ngIf="submitted && f.nameVictime.errors" class="invalid-feedback">
+                <div *ngIf="f.nameVictime.errors.required"> Name est obligatoire</div>
+                <div *ngIf="f.nameVictime.errors.alpha">Name doit etre en alphabétique </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Prenom</label>
+            <input  type="text" placeholder="taper le prenom" formControlName="lastNameVictime" id="lastNameVictime" [ngClass]="{ 'is-invalid': submitted && f.lastNameVictime.errors }" />
+            <div *ngIf="submitted && f.lastNameVictime.errors" class="invalid-feedback">
+                <div *ngIf="f.lastNameVictime.errors.required"> Last Name est obligatoire</div>
+                <div *ngIf="f.lastNameVictime.errors.alpha">Last Name doit etre en alphabétique </div>
+            </div>
+          </div>
+            <div class="form-group">
+            <label> corp Blesser</label>
+             <input  type="text" placeholder="taper  corp Blesser" formControlName="corpBlesser" id="corpBlesser" [ngClass]="{ 'is-invalid': submitted && f.corpBlesser.errors }" />
+             <div *ngIf="submitted && f.corpBlesser.errors" class="invalid-feedback">
+                 <div *ngIf="f.corpBlesser.errors.required"> corp Blesser est obligatoire</div>
+                 <div *ngIf="f.corpBlesser.errors.corpBlesser"> corp Blesser doit etre en alphabétique</div>
+             </div>
+            </div>
+            <div class="form-group">
+              <label> niveau Blessure</label>
+               <input  type="text" placeholder="taper  niveau Blessure" formControlName="niveauBlessure" id="niveauBlessure" [ngClass]="{ 'is-invalid': submitted && f.niveauBlessure.errors }" />
+               <div *ngIf="submitted && f.niveauBlessure.errors" class="invalid-feedback">
+                   <div *ngIf="f.niveauBlessure.errors.required"> niveau Blessure est obligatoire</div>
+                   <div *ngIf="f.niveauBlessure.errors.niveauBlessure"> niveau Blessure doit etre en alphabétique</div>
+               </div>
+              </div>
+          <div class="form-group">
+            <label>etat Victime</label>
+            <select formControlName="etatVictime" [ngClass]="{ 'is-invalid': submitted && f.etatVictime.errors }">
+              <option value="vivant">
+              vivant
+              </option>
+              <option value="mort">
+              mort
+              </option>
+            </select>
+            <div *ngIf="submitted && f.etatVictime.errors" class="invalid-feedback">
+              <div *ngIf="f.etatVictime.errors.required">etat Victime  est obligatoire</div>
+          </div>
+          </div>
+            <div class="form-group">
+            <label>Type Victime</label>
+            <select formControlName="typeVictime" [ngClass]="{ 'is-invalid': submitted && f.typeVictime.errors }">
+              <option value="externe">
+                externe
+              </option>
+              <option value="interne">
+               interne
+              </option>
+            </select>
+            <div *ngIf="submitted && f.typeVictime.errors" class="invalid-feedback">
+              <div *ngIf="f.typeVictime.errors.required">type Victime est obligatoire</div>
+          </div>
+          </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-dark"> Submit</button>
+            <button type="reset" class="btn btn-dark" (click)="ResetForm()">Annuler</button>
+            </div>
+        </form>
+      </div>
+    </div>
+    </div>
+    <div id="id2" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+    <div class="card ">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Liste Agent 
+        <div class="card-header-actions">
+          <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse2()"><i class={{iconCollapse}}></i></button>
+          <button type="button" class="card-header-action btn btn-link btn-close"(click)="close2()"><i class="icon-close"></i></button>
+        </div>
+      </div>
+      <div (collapsed)="collapsed($event)"
+      (expanded)="expanded($event)"
+      [collapse]="isCollapsed2"
+      class="card-body">
+        <app-victime [victimes]="victimes" [page1]="page1" [count1]="count1" [pageSize1]="pageSize1"></app-victime>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>

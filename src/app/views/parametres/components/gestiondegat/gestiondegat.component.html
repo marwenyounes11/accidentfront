@@ -1,0 +1,197 @@
+<ng-template   #contentModalmat let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Degat Materiel</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm1" (ngSubmit)="onSubmitMateriel()">
+      <div class="form-group">
+        <label>value </label>
+        <input type="text" class="form-control" formControlName="value" id="value"   [ngClass]="{ 'is-invalid': submitted && this.crudApi.dataForm1.controls.value.errors }" />
+        <div *ngIf="submitted && this.crudApi.dataForm1.controls.value.errors" class="invalid-feedback">
+            <div *ngIf="this.crudApi.dataForm1.controls.value.errors.required"> Value is required</div>
+            <div *ngIf="this.crudApi.dataForm1.controls.value.errors.value">Value doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Description </label>
+        <textarea class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && this.crudApi.dataForm1.controls.description.errors }"></textarea>
+        <div *ngIf="submitted && this.crudApi.dataForm1.controls.description.errors" class="invalid-feedback">
+            <div *ngIf="this.crudApi.dataForm1.controls.description.errors.required"> Description is required</div>
+            <div *ngIf="this.crudApi.dataForm1.controls.description.errors.regex"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <label>id Accident  </label>
+          <select id="idAccident" formControlName="idAccident" class="form-control" [ngClass]="{ 'is-invalid': submitted && this.crudApi.dataForm1.controls.idAccident.errors }">
+            <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+          </select>
+          <div *ngIf="submitted && this.crudApi.dataForm1.controls.idAccident.errors" class="invalid-feedback">
+            <div *ngIf="this.crudApi.dataForm1.controls.idAccident.errors.required">id Accident est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark" (click)="ResetForm()">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template   #contentModalphys let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Degat Physique</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm2" (ngSubmit)="onSubmitPhysique()">
+      <div class="form-group">
+        <label>Description </label>
+        <textarea class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && this.crudApi.dataForm2.controls.description.errors }"></textarea>
+        <div *ngIf="submitted && this.crudApi.dataForm2.controls.description.errors" class="invalid-feedback">
+            <div *ngIf="this.crudApi.dataForm2.controls.description.errors.required"> Description is required</div>
+            <div *ngIf="this.crudApi.dataForm2.controls.description.errors.regex"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id Accident  </label>
+        <select id="idAccident" formControlName="idAccident" class="form-control" [ngClass]="{ 'is-invalid': submitted && this.crudApi.dataForm2.controls.idAccident.errors }">
+          <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+        </select>
+        <div *ngIf="submitted && this.crudApi.dataForm2.controls.idAccident.errors" class="invalid-feedback">
+          <div *ngIf="this.crudApi.dataForm2.controls.idAccident.errors.required">id Accident est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark" (click)="ResetForm()">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+<ngb-tabset>
+  <ngb-tab title="Degat Materiel">
+    <ng-template ngbTabContent>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openMateriel(contentModalmat)">
+            <i class="fa fa-plus"></i>Add Degat Materiel  </a>
+     </div>
+     <table class="table table-bordered table-responsive-sm table-responsive-md
+     table-responsive-lg t">
+      <thead>
+      <tr>
+        
+      
+      
+      <th scope="col">Value </th>
+      <th scope="col">Description</th>
+      <th scope="col">Type</th>
+      <th scope="col">Accident</th>
+      <th colspan="2">
+        Action
+      </th>
+      </tr>
+      </thead>
+      <tbody>
+    
+    
+      <tr *ngFor="let item of degatmateriels | paginate: { itemsPerPage: pageSize1,
+        currentPage: page1,
+        totalItems: count1 }">
+      <td>{{item.value}}</td>
+      <td>{{item.type}}</td>
+      <td>{{item.description}}</td>
+      <td>{{item.accident.id}}</td>
+      <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectMateriel(item.id,contentModalmat)" >
+        <i class="fa fa-pencil-square-o" ></i></button></td>
+     <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataMateriel(item.id)">
+        <i class="fa fa-trash-o"></i></button></td>
+         </tr>
+           </tbody>
+           </table>
+           <div class="col-md-12">
+            <pagination-controls
+              previousLabel="Prev"
+              nextLabel="Next"
+              responsive="true"
+              (pageChange)="handlePageChange1($event)"
+            ></pagination-controls>
+          </div>
+          <div class="mt-3">
+            ...
+        
+            Items per Page:
+            <select (change)="handlePageSizeChange1($event)">
+              <option *ngFor="let size of pageSizes" [value]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </ng-template>
+      </ngb-tab>
+      <ngb-tab title="Accident Degat Physique">
+        <ng-template ngbTabContent>
+          <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+            <a class="btn btn-sm btn-success text-white pull-right" (click)="openPhysique(contentModalphys)">
+                <i class="fa fa-plus"></i>Add Degat Physique</a>
+         </div>
+         <table class="table table-bordered table-responsive-sm table-responsive-md
+         table-responsive-lg t">
+          <thead>
+          <tr>
+            
+          
+          
+          
+          <th scope="col">Description</th>
+          <th scope="col">Type</th>
+          <th scope="col">Accident</th>
+          <th colspan="2">
+            Action
+          </th>
+          </tr>
+          </thead>
+          <tbody>
+        
+        
+          <tr *ngFor="let item of degatphysiques | paginate: { itemsPerPage: pageSize2,
+            currentPage: page2,
+            totalItems: count2 }">
+          <td>{{item.description}}</td>
+          <td>{{item.type}}</td>
+          <td>{{item.accident.id}}</td>
+          <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectPhysique(item.id,contentModalphys)" >
+            <i class="fa fa-pencil-square-o" ></i></button></td>
+         <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataPhysique(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+             </tr>
+               </tbody>
+               </table>
+               <div class="col-md-12">
+                <pagination-controls
+                  previousLabel="Prev"
+                  nextLabel="Next"
+                  responsive="true"
+                  (pageChange)="handlePageChange2($event)"
+                ></pagination-controls>
+              </div>
+              <div class="mt-3">
+                ...
+            
+                Items per Page:
+                <select (change)="handlePageSizeChange2($event)">
+                  <option *ngFor="let size of pageSizes" [value]="size">
+                    {{ size }}
+                  </option>
+                </select>
+              </div>
+              </ng-template>
+            </ngb-tab>
+    </ngb-tabset>
+   

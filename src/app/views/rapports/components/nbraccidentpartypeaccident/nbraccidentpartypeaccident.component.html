@@ -1,0 +1,61 @@
+<div class="container">
+  <div class="row"> 
+     
+      <div class="col-md-12">
+          <div class="panel panel-default">
+              <div class="panel-heading"><h2>Rapport sur Nombre Accident par Type Accident</h2></div>
+              <div class="panel-body">
+                <div class="pricing-header mx-auto ">
+                  <div id="id1" class="card ">
+                    <div class="card-header">
+                      <i class="fa fa-align-justify"></i>Données relatives aux Nombre Accident par Type Accident
+                      <div class="card-header-actions">
+                        <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse1}}></i></button>
+                        <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+                      </div>
+                    </div>
+                    <div (collapsed)="collapsed($event)"
+                    (expanded)="expanded($event)"
+                    [collapse]="isCollapsed1"
+                    class="card-body">
+                        <div class="table-responsive content">
+                          <div class="ex">  
+                            <button  style="width: 190px;" class="btn btn-success" type="submit" value="ExportToExcel" name="action" (click)="runExcel()">  
+                              <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel  
+                            </button>  
+                            <button style="width: 190px;" class="btn btn-success" type="submit" value="ExportToCsv" name="action" (click)="runCsv()">  
+                              <i class="fa fa-csv"></i> Export To Csv  
+                            </button>  
+                            <button style="width: 200px;" class="btn btn-success" type="submit" value="ExportToPdf" name="action" (click)="runPdf()">  
+                              <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export To Pdf  
+                            </button>  
+                            <button style="width: 200px;" class="btn btn-success" type="submit" value="ExportToWord" name="action" (click)="runWord()">  
+                              <i class="fa fa-file-word-o" aria-hidden="true"></i> Export To Word  
+                            </button>  
+                            <button style="width: 200px;" class="btn btn-success" type="submit" value="ExportToHtml" name="action" (click)="runHtml()">  
+                              <i class="fa fa-file-code-o" aria-hidden="true"></i> Export To Html 
+                            </button>  
+                        </div> 
+                     <table class="table table-bordered table-responsive-sm table-responsive-md
+                    table-responsive-lg t">
+                     <thead>
+                     <tr>
+                    <th scope="col">Type Accident</th>
+                    <th scope="col">nombre Accident</th>
+                    </tr>
+                    </thead>
+                     <tbody *ngIf ="nbrAccidentParTypeAccident">
+                     <tr  *ngFor="let item of nbrAccidentParTypeAccident ">
+                    <td>{{item.type}}</td>
+                     <td>{{item.nbrAccident}}</td>
+                        </tr>
+                          </tbody>
+                          </table>
+                          </div>
+                        </div>
+                      </div>
+                  </div>
+             </div>
+      </div>
+  </div> 
+  </div>

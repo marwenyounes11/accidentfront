@@ -1,0 +1,84 @@
+<div class="container-fluide">
+  <div class="row">
+    <div id="id1" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+      <div class="card ">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>{{pageTitle}}
+          <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+            <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+          </div>
+        </div>
+        <div (collapsed)="collapsed($event)"
+        (expanded)="expanded($event)"
+        [collapse]="isCollapsed1"
+        class="card-body">
+        <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+          <div class="form-group">
+            <label>Nom</label>
+            <input  type="text" placeholder="taper le nom" formControlName="name" id="name"  [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
+            <div *ngIf="submitted && f.name.errors" class="invalid-feedback">
+                <div *ngIf="f.name.errors.required"> Nom est obligatoire</div>
+                <div *ngIf="f.name.errors.alpha">Nom doit etre en alphabétique </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Prenom</label>
+            <input  type="text" placeholder="taper le prenom" formControlName="lastName" id="lastName" [ngClass]="{ 'is-invalid': submitted && f.lastName.errors }" />
+            <div *ngIf="submitted && f.lastName.errors" class="invalid-feedback">
+                <div *ngIf="f.lastName.errors.required"> prenom est obligatoire</div>
+                <div *ngIf="f.lastName.errors.alpha">prenom doit etre en alphabétique </div>
+            </div>
+          </div>
+             <div class="form-group">
+            <label>Matricule</label>
+            <input  type="text" placeholder="taper le matricule" class="form-control" formControlName="matricule" id="matricule"  [ngClass]="{ 'is-invalid': submitted && f.matricule.errors }" />
+            <div *ngIf="submitted && f.matricule.errors" class="invalid-feedback">
+                <div *ngIf="f.matricule.errors.required"> Matricule is required</div>
+                <div *ngIf="f.matricule.errors.alphaNumeric">Matricule doit etre en alphanumérique </div>
+            </div>
+          </div>
+            <div class="form-group">
+            <label>Téléphone </label>
+            <input type="tel"  placeholder="taper votre telephone" formControlName="phone" id="phone" [ngClass]="{ 'is-invalid': submitted && f.phone.errors }" />
+            <div *ngIf="submitted && f.phone.errors" class="invalid-feedback">
+                <div *ngIf="f.phone.errors.required">phone is required</div>
+                <div *ngIf="f.phone.errors.onlyDigit">phone doit etre en bon format</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>id Source inform  </label>
+            <select id="idsourceinform" formControlName="idsourceinform" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.idsourceinform.errors }">
+              <option *ngFor="let s of  sourceinforms._embedded.sourceInforms" [value]="s.id">{{s.lastName}}</option>
+            </select>
+            <div *ngIf="submitted && f.idsourceinform.errors" class="invalid-feedback">
+              <div *ngIf="f.idsourceinform.errors.required">id source information est obligatoire</div>
+          </div>
+        </div>
+            <div class="form-group">
+            <button type="submit" class="btn btn-dark"> Submit</button>
+            <button type="reset" class="btn btn-dark" (click)="ResetForm()">Annuler</button>
+          </div>
+        </form>
+      </div>
+    </div>
+    </div>
+    <div id="id2" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+    <div class="card ">
+      <div class="card-header">
+        <i class="fa fa-align-justify"></i> Liste Ambulancier
+        <div class="card-header-actions">
+          <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse2()"><i class={{iconCollapse}}></i></button>
+          <button type="button" class="card-header-action btn btn-link btn-close"(click)="close2()"><i class="icon-close"></i></button>
+        </div>
+      </div>
+      <div (collapsed)="collapsed($event)"
+      (expanded)="expanded($event)"
+      [collapse]="isCollapsed2"
+      class="card-body">
+        <app-ambulancier [ambulanciers]="ambulanciers" [page1]="page1" [count1]="count1" [pageSize1]="pageSize1"></app-ambulancier>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>

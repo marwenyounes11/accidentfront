@@ -1,0 +1,167 @@
+<div class="container-fluide">
+  <div class="row">
+    <div id="id1" class="col-xs-11 col-sm-11 col-md-11 col-lg-11 ">
+      <div class="card ">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Incidents Journaliers (réseaux {{reseaux}})
+          {{dateAccident}}
+          <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+            <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+          </div>
+        </div>
+        <div (collapsed)="collapsed($event)"
+        (expanded)="expanded($event)"
+        [collapse]="isCollapsed1"
+        class="card-body">
+  
+   <div class="row">
+    <div class="col-md-5">
+      <label> Saisir la  Date </label>
+      <input id="d1" type="date" class="form-control" 
+             [(ngModel)]="dateAccident" />
+    </div>
+    <div class="col-md-3">
+      <label>choisir le réseaux </label>
+      <br>
+      <select id="rs" [(ngModel)]="reseaux" class="form-control" >
+        <option value=" --choisir une option--">
+          --choisir une option--
+        </option>
+        <option value="bus" >
+          bus
+        </option>
+        <option value="metro">
+           metro
+        </option>
+        <option value="tgm">
+           tgm
+        </option>
+      </select>
+    </div>
+      <div class="col-md-2">
+        <br>
+        <button (click)="chercher()" >afficher</button>
+      </div>
+  </div>
+  <div class="pricing-header mx-auto ">
+    <div >Accidents Routes
+        <div class="table-responsive content">
+     <table class="table table-bordered table-responsive-sm table-responsive-md
+    table-responsive-lg t">
+     <thead>
+     <tr>
+     <th scope="col">District </th>
+     <th scope="col">Heure Accident</th>
+     <th scope="col">Ligne</th>
+     <th scope="col">Reseaux </th>
+     <th scope="col"> lieux</th>
+     <th scope="col">Chauffeur </th>
+     <th scope="col">Sous Type Accident</th>
+     <th scope="col">Degats</th>
+     </tr>
+     </thead>
+     <tbody *ngIf ="incidentJournalierroutes">
+     <tr  *ngFor="let item of incidentJournalierroutes ">
+    <td>{{item.nameDistrict}}</td>
+     <td>{{item.heureAccident}}</td>
+     <td>{{item.nameLigne}}</td>
+     <td>{{item.type}} avec immatriculation {{item.immatriculation}}</td>
+     <td>{{item.emplacement}}</td>
+     <td>{{item.name}}-{{item.lastName}}</td>
+     <td>{{item.subType}}</td>
+     <td>
+       <ul *ngFor="let d of item.degatmateriels ">
+          <li>{{d.description}} a dommagé {{d.degattransport.length}} reseaux </li>
+       </ul>
+       <ul *ngFor="let d of item.degatphysiques ">
+         <li>{{d.description}} causé {{d.degatvictime.length}} victimes </li>
+      </ul>
+     </td>
+        </tr>
+          </tbody>
+          </table>
+          </div>
+    </div>
+    <div >Accidents Travails
+     <div class="table-responsive content">
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+ table-responsive-lg t">
+  <thead>
+  <tr>
+  <th scope="col">District </th>
+  <th scope="col">Heure Accident</th>
+  <th scope="col">Ligne</th>
+  <th scope="col">Reseaux </th>
+  <th scope="col"> lieux</th>
+  <th scope="col">Chauffeur </th>
+  <th scope="col">Sous Type Accident</th>
+  <th scope="col">Degats</th>
+  </tr>
+  </thead>
+  <tbody *ngIf ="incidentJournaliertravails">
+
+
+  <tr *ngFor="let item of incidentJournaliertravails ">
+ <td>{{item.nameDistrict}}</td>
+  <td>{{item.heureAccident}}</td>
+  <td>{{item.nameLigne}}</td>
+  <td>{{item.type}} avec immatriculation {{item.immatriculation}}</td>
+  <td>{{item.emplacement}}</td>
+  <td>{{item.name}}-{{item.lastName}}</td>
+  <td>{{item.subType}}</td>
+  <td>
+   <ul *ngFor="let d of item.degatmateriels ">
+     <li>{{d.description}} a dommagé {{d.degattransport.length}} reseaux </li>
+  </ul>
+  <ul *ngFor="let d of item.degatphysiques ">
+    <li>{{d.description}} causé {{d.degatvictime.length}} victimes </li>
+ </ul>
+  </td>
+     </tr>
+       </tbody>
+       </table>
+       </div>
+    </div>
+    <div >Accidents Collisions
+     <div class="table-responsive content">
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+ table-responsive-lg t">
+  <thead>
+  <tr>
+  <th scope="col">District </th>
+  <th scope="col">Heure Accident</th>
+  <th scope="col">Ligne</th>
+  <th scope="col">Reseaux </th>
+  <th scope="col"> lieux</th>
+  <th scope="col">Chauffeur </th>
+  <th scope="col">Sous Type Accident</th>
+  <th scope="col">Degats</th>
+  </tr>
+  </thead>
+  <tbody *ngIf ="incidentJournaliercollisions">
+    
+  <tr *ngFor="let item of incidentJournaliercollisions ">
+ <td>{{item.nameDistrict}}</td>
+  <td>{{item.heureAccident}}</td>
+  <td>{{item.nameLigne}}</td>
+  <td>{{item.type}} avec immatriculation {{item.immatriculation}}</td>
+  <td>{{item.emplacement}}</td>
+  <td>{{item.name}}-{{item.lastName}}</td>
+  <td>{{item.subType}}</td>
+  <td>
+   <ul *ngFor="let d of item.degatmateriels ">
+     <li>{{d.description}} a dommagé {{d.degattransport.length}} reseaux </li>
+  </ul>
+  <ul *ngFor="let d of item.degatphysiques ">
+    <li>{{d.description}} causé {{d.degatvictime.length}} victimes </li>
+ </ul>
+  </td>
+     </tr>
+       </tbody>
+       </table>
+      </div>
+    </div>
+    </div>
+    </div>
+    </div>

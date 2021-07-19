@@ -1,0 +1,26 @@
+#name{
+    display: none;
+}
+#ic{
+    display: none;
+}
+#name{
+    width: 50%;
+}
+.cb{
+    display: block;
+}
+i{
+    display: inline;
+}
+.card{
+    margin: 20px 20px 20px 20px ;
+}
+
+table{
+    display: none;
+}
+
+.nav-link:hover{
+    background-color: #185fac;
+}

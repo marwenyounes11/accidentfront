@@ -1,0 +1,811 @@
+
+<ng-template   #contentModalex let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Extincteur</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm1" (ngSubmit)="onSubmitExtincteur()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && f1.description.errors }" />
+        <div *ngIf="submitted && f1.description.errors" class="invalid-feedback">
+            <div *ngIf="f1.description.errors.required"> Description is required</div>
+            <div *ngIf="f1.description.errors.alpha"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number Serie </label>
+        <input type="text" class="form-control" formControlName="numberSerie" id="numberSerie"   [ngClass]="{ 'is-invalid': submitted && f1.numberSerie.errors }" />
+        <div *ngIf="submitted && f1.numberSerie.errors" class="invalid-feedback">
+            <div *ngIf="f1.numberSerie.errors.required">number Serie est obligatoire</div>
+            <div *ngIf="f1.numberSerie.errors.alphaNumeric"> number Serie doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Acquisition </label>
+        <input type="date" class="form-control" formControlName="dateAcquisition" id="dateAcquisition"  [ngClass]="{ 'is-invalid': submitted && f1.dateAcquisition.errors }" />
+        <div *ngIf="submitted && f1.dateAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f1.dateAcquisition.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Acquisition </label>
+        <input type="time" class="form-control" formControlName="heureAcquisition" id="heureAcquisition"   [ngClass]="{ 'is-invalid': submitted && f1.heureAcquisition.errors }" />
+        <div *ngIf="submitted && f1.heureAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f1.heureAcquisition.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f1.heureAcquisition.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Maintenance </label>
+        <input type="date" class="form-control" formControlName="dateMaintenance" id="dateMaintenance"   [ngClass]="{ 'is-invalid': submitted && f1.dateMaintenance.errors }" />
+        <div *ngIf="submitted && f1.dateMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f1.dateMaintenance.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Maintenance </label>
+        <input type="time" class="form-control" formControlName="heureMaintenance" id="heureMaintenance"  [ngClass]="{ 'is-invalid': submitted && f1.heureMaintenance.errors }" />
+        <div *ngIf="submitted && f1.heureMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f1.heureMaintenance.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f1.heureMaintenance.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Peremption </label>
+        <input type="date" class="form-control" formControlName="datePeremption" id="datePeremption"    [ngClass]="{ 'is-invalid': submitted && f1.datePeremption.errors }" />
+        <div *ngIf="submitted && f1.datePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f1.datePeremption.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Peremption </label>
+        <input type="time" class="form-control" formControlName="heurePeremption" id="heurePeremption"  [ngClass]="{ 'is-invalid': submitted && f1.heurePeremption.errors }" />
+        <div *ngIf="submitted && f1.heurePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f1.heurePeremption.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f1.heurePeremption.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group" >
+        <label>type extincteur </label>
+        <select id="subtype" formControlName="subtype" class="form-control" [ngClass]="{ 'is-invalid': submitted && f1.subtype.errors }">
+          <option value="Extincteur à eau ">
+            Extincteur à eau 
+          </option>
+          <option value="Extincteur à poudre">
+            Extincteur à poudre
+          </option>
+          <option value="Extincteur à gaz">
+            Extincteur à gaz
+          </option>
+          <option value="Extincteur à mousse">
+            Extincteur à mousse
+          </option>
+        </select>
+        <div *ngIf="submitted && f1.subtype.errors" class="invalid-feedback">
+          <div *ngIf="f1.subtype.errors.required"> subtype est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+          <label>File Upload  </label>
+              <input type="file" accept="image/*" (change)="onSelectFile1($event)">
+              <img [src]="imgURL1" height="200" *ngIf="imgURL1">
+      </div>
+      <div class="form-group" (change)="changeEmplacement($event)">
+        <label>moyen transport</label>
+        <input id="moyentransport" type="radio" value="moyen transport" name="emplacement" formControlName="emplacement" >
+      <label >depot</label>
+        <input id="depot" type="radio" value="depot" name="emplacement" formControlName="emplacement" >
+        <label >departement</label>
+        <input id="departement" type="radio" value="departement" name="emplacement" formControlName="emplacement" >
+  </div>
+      <div class="form-group"  id="e1" style="display: none;">
+        <label> moyen transport </label>
+        <select id="idmoyentransport" formControlName="idmoyentransport" class="form-control">
+          <option *ngFor="let m of  moyentransports" [value]="m.id">{{m.matricule}} avec numero {{m.numTransport}} </option>
+        </select>
+    </div>
+    <div class="form-group"  id="e2" style="display: none;">
+      <label> depot </label>
+      <select id="iddepot" formControlName="iddepot" class="form-control">
+        <option *ngFor="let d of  depots" [value]="d.id">{{d.nameDepot}} </option>
+      </select>
+  </div>
+  <div class="form-group"  id="e3" style="display: none;">
+    <label> departement</label>
+    <select id="iddepartement" formControlName="iddepartement" class="form-control">
+      <option *ngFor="let dp of  departements._embedded.departements" [value]="dp.id">{{dp.nameDepartement}}  </option>
+    </select>
+</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template   #contentModalbi let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Bouche incendies</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm2" (ngSubmit)="onSubmitBouche()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && f2.description.errors }" />
+        <div *ngIf="submitted && f2.description.errors" class="invalid-feedback">
+            <div *ngIf="f2.description.errors.required"> Description is required</div>
+            <div *ngIf="f2.description.errors.alpha"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number Serie </label>
+        <input type="text" class="form-control" formControlName="numberSerie" id="numberSerie"   [ngClass]="{ 'is-invalid': submitted && f2.numberSerie.errors }" />
+        <div *ngIf="submitted && f2.numberSerie.errors" class="invalid-feedback">
+            <div *ngIf="f2.numberSerie.errors.required">number Serie est obligatoire</div>
+            <div *ngIf="f2.numberSerie.errors.alphaNumeric"> number Serie doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Acquisition </label>
+        <input type="date" class="form-control" formControlName="dateAcquisition" id="dateAcquisition"  [ngClass]="{ 'is-invalid': submitted && f2.dateAcquisition.errors }" />
+        <div *ngIf="submitted && f2.dateAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f2.dateAcquisition.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Acquisition </label>
+        <input type="time" class="form-control" formControlName="heureAcquisition" id="heureAcquisition"   [ngClass]="{ 'is-invalid': submitted && f2.heureAcquisition.errors }" />
+        <div *ngIf="submitted && f2.heureAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f2.heureAcquisition.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f2.heureAcquisition.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Maintenance </label>
+        <input type="date" class="form-control" formControlName="dateMaintenance" id="dateMaintenance"   [ngClass]="{ 'is-invalid': submitted && f2.dateMaintenance.errors }" />
+        <div *ngIf="submitted && f2.dateMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f2.dateMaintenance.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Maintenance </label>
+        <input type="time" class="form-control" formControlName="heureMaintenance" id="heureMaintenance"  [ngClass]="{ 'is-invalid': submitted && f2.heureMaintenance.errors }" />
+        <div *ngIf="submitted && f2.heureMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f2.heureMaintenance.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f2.heureMaintenance.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Peremption </label>
+        <input type="date" class="form-control" formControlName="datePeremption" id="datePeremption"    [ngClass]="{ 'is-invalid': submitted && f2.datePeremption.errors }" />
+        <div *ngIf="submitted && f2.datePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f2.datePeremption.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Peremption </label>
+        <input type="time" class="form-control" formControlName="heurePeremption" id="heurePeremption"  [ngClass]="{ 'is-invalid': submitted && f2.heurePeremption.errors }" />
+        <div *ngIf="submitted && f2.heurePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f2.heurePeremption.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f2.heurePeremption.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+     
+      <div class="form-group">
+          <label>File Upload  </label>
+              <input type="file" accept="image/*" (change)="onSelectFile2($event)">
+              <img [src]="imgURL2" height="200" *ngIf="imgURL2">
+      </div>
+  <div class="form-group">
+    <label>nombre bouche </label>
+    <input type="number" class="form-control" formControlName="nombrebouche" id="nombrebouche"   [ngClass]="{ 'is-invalid': submitted && f2.nombrebouche.errors }" />
+    <div *ngIf="submitted && f2.nombrebouche.errors" class="invalid-feedback">
+        <div *ngIf="f2.nombrebouche.errors.required">nombre bouche est obligatoire</div>
+        <div *ngIf="f2.nombrebouche.errors.numeric"> nombre bouche doit etre en numérique </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label> departement</label>
+    <select id="iddepartement" formControlName="iddepartement" class="form-control" [ngClass]="{ 'is-invalid': submitted && f2.iddepartement.errors }">
+      <option *ngFor="let dp of  departements._embedded.departements" [value]="dp.id">{{dp.nameDepartement}}  </option>
+    </select>
+    <div *ngIf="submitted && f2.iddepartement.errors" class="invalid-feedback">
+      <div *ngIf="f2.iddepartement.errors.required">id departement est obligatoire</div>
+  </div>
+</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template   #contentModalpi let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Poteaux incendies</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm3" (ngSubmit)="onSubmitPoteaux()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && f3.description.errors }" />
+        <div *ngIf="submitted && f3.description.errors" class="invalid-feedback">
+            <div *ngIf="f3.description.errors.required"> Description is required</div>
+            <div *ngIf="f3.description.errors.alpha"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number Serie </label>
+        <input type="text" class="form-control" formControlName="numberSerie" id="numberSerie"   [ngClass]="{ 'is-invalid': submitted && f3.numberSerie.errors }" />
+        <div *ngIf="submitted && f3.numberSerie.errors" class="invalid-feedback">
+            <div *ngIf="f3.numberSerie.errors.required">number Serie est obligatoire</div>
+            <div *ngIf="f3.numberSerie.errors.alphaNumeric"> number Serie doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Acquisition </label>
+        <input type="date" class="form-control" formControlName="dateAcquisition" id="dateAcquisition"  [ngClass]="{ 'is-invalid': submitted && f3.dateAcquisition.errors }" />
+        <div *ngIf="submitted && f3.dateAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f3.dateAcquisition.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Acquisition </label>
+        <input type="time" class="form-control" formControlName="heureAcquisition" id="heureAcquisition"   [ngClass]="{ 'is-invalid': submitted && f3.heureAcquisition.errors }" />
+        <div *ngIf="submitted && f3.heureAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f3.heureAcquisition.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f3.heureAcquisition.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Maintenance </label>
+        <input type="date" class="form-control" formControlName="dateMaintenance" id="dateMaintenance"   [ngClass]="{ 'is-invalid': submitted && f3.dateMaintenance.errors }" />
+        <div *ngIf="submitted && f3.dateMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f3.dateMaintenance.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Maintenance </label>
+        <input type="time" class="form-control" formControlName="heureMaintenance" id="heureMaintenance"  [ngClass]="{ 'is-invalid': submitted && f3.heureMaintenance.errors }" />
+        <div *ngIf="submitted && f3.heureMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f3.heureMaintenance.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f3.heureMaintenance.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Peremption </label>
+        <input type="date" class="form-control" formControlName="datePeremption" id="datePeremption"    [ngClass]="{ 'is-invalid': submitted && f3.datePeremption.errors }" />
+        <div *ngIf="submitted && f3.datePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f3.datePeremption.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Peremption </label>
+        <input type="time" class="form-control" formControlName="heurePeremption" id="heurePeremption"  [ngClass]="{ 'is-invalid': submitted && f3.heurePeremption.errors }" />
+        <div *ngIf="submitted && f3.heurePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f3.heurePeremption.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f3.heurePeremption.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+     
+      <div class="form-group">
+          <label>File Upload  </label>
+              <input type="file" accept="image/*" (change)="onSelectFile3($event)">
+              <img [src]="imgURL3" height="200" *ngIf="imgURL3">
+      </div>
+  <div class="form-group">
+    <label>coleur poteaux </label>
+    <input type="text" class="form-control" formControlName="coleurpoteaux" id="coleurpoteaux"   [ngClass]="{ 'is-invalid': submitted && f3.coleurpoteaux.errors }" />
+    <div *ngIf="submitted && f3.coleurpoteaux.errors" class="invalid-feedback">
+        <div *ngIf="f3.coleurpoteaux.errors.required">coleurpoteaux est obligatoire</div>
+        <div *ngIf="f3.coleurpoteaux.errors.alpha"> coleurpoteaux doit etre en alphabétique </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label> departement</label>
+    <select id="iddepartement" formControlName="iddepartement" class="form-control" [ngClass]="{ 'is-invalid': submitted && f3.iddepartement.errors }">
+      <option *ngFor="let dp of  departements._embedded.departements" [value]="dp.id">{{dp.nameDepartement}}  </option>
+    </select>
+    <div *ngIf="submitted && f3.iddepartement.errors" class="invalid-feedback">
+      <div *ngIf="f3.iddepartement.errors.required">id departement est obligatoire</div>
+  </div>
+</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ng-template   #contentModalri let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Robinet incendies</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm4" (ngSubmit)="onSubmitRobinet()">
+      <div class="form-group">
+        <label>Description </label>
+        <input type="text" class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && f4.description.errors }" />
+        <div *ngIf="submitted && f4.description.errors" class="invalid-feedback">
+            <div *ngIf="f4.description.errors.required"> Description is required</div>
+            <div *ngIf="f4.description.errors.alpha"> Description doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Number Serie </label>
+        <input type="text" class="form-control" formControlName="numberSerie" id="numberSerie"   [ngClass]="{ 'is-invalid': submitted && f4.numberSerie.errors }" />
+        <div *ngIf="submitted && f4.numberSerie.errors" class="invalid-feedback">
+            <div *ngIf="f4.numberSerie.errors.required">number Serie est obligatoire</div>
+            <div *ngIf="f4.numberSerie.errors.alphaNumeric"> number Serie doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Acquisition </label>
+        <input type="date" class="form-control" formControlName="dateAcquisition" id="dateAcquisition"  [ngClass]="{ 'is-invalid': submitted && f4.dateAcquisition.errors }" />
+        <div *ngIf="submitted && f4.dateAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f4.dateAcquisition.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Acquisition </label>
+        <input type="time" class="form-control" formControlName="heureAcquisition" id="heureAcquisition"   [ngClass]="{ 'is-invalid': submitted && f4.heureAcquisition.errors }" />
+        <div *ngIf="submitted && f4.heureAcquisition.errors" class="invalid-feedback">
+            <div *ngIf="f4.heureAcquisition.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f4.heureAcquisition.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Maintenance </label>
+        <input type="date" class="form-control" formControlName="dateMaintenance" id="dateMaintenance"   [ngClass]="{ 'is-invalid': submitted && f4.dateMaintenance.errors }" />
+        <div *ngIf="submitted && f4.dateMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f4.dateMaintenance.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Maintenance </label>
+        <input type="time" class="form-control" formControlName="heureMaintenance" id="heureMaintenance"  [ngClass]="{ 'is-invalid': submitted && f4.heureMaintenance.errors }" />
+        <div *ngIf="submitted && f.heureMaintenance.errors" class="invalid-feedback">
+            <div *ngIf="f4.heureMaintenance.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f4.heureMaintenance.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>Date Peremption </label>
+        <input type="date" class="form-control" formControlName="datePeremption" id="datePeremption"    [ngClass]="{ 'is-invalid': submitted && f4.datePeremption.errors }" />
+        <div *ngIf="submitted && f.datePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f4.datePeremption.errors.required"> date est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>heure Peremption </label>
+        <input type="time" class="form-control" formControlName="heurePeremption" id="heurePeremption"  [ngClass]="{ 'is-invalid': submitted && f4.heurePeremption.errors }" />
+        <div *ngIf="submitted && f.heurePeremption.errors" class="invalid-feedback">
+            <div *ngIf="f4.heurePeremption.errors.required"> heure est obligatoire</div>
+            <div *ngIf="f4.heurePeremption.errors.time"> heure doit etre en time </div>
+        </div>
+      </div>
+      <div class="form-group">
+          <label>File Upload  </label>
+              <input type="file" accept="image/*" (change)="onSelectFile4($event)">
+              <img [src]="imgURL4" height="200" *ngIf="imgURL4">
+      </div>
+  <div class="form-group">
+    <label>length </label>
+    <input type="text" class="form-control" formControlName="length" id="length" [ngClass]="{ 'is-invalid': submitted && f4.length.errors }" />
+    <div *ngIf="submitted && f4.length.errors" class="invalid-feedback">
+        <div *ngIf="f4.length.errors.required">length est obligatoire</div>
+        <div *ngIf="f4.length.errors.alphaNumeric"> length doit etre en alphanumérique </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label>diametre </label>
+    <input type="text" class="form-control" formControlName="diametre" id="diametre" [ngClass]="{ 'is-invalid': submitted && f4.diametre.errors }" />
+    <div *ngIf="submitted && f.diametre.errors" class="invalid-feedback">
+        <div *ngIf="f4.diametre.errors.required">diametre est obligatoire</div>
+        <div *ngIf="f4.diametre.errors.alphaNumeric"> diametre doit etre en alphanumérique </div>
+    </div>
+  </div>
+  <div class="form-group">
+    <label> departement</label>
+    <select id="iddepartement" formControlName="iddepartement" class="form-control" [ngClass]="{ 'is-invalid': submitted && f4.iddepartement.errors }">
+      <option *ngFor="let dp of  departements._embedded.departements" [value]="dp.id">{{dp.nameDepartement}}  </option>
+    </select>
+    <div *ngIf="submitted && f4.iddepartement.errors" class="invalid-feedback">
+      <div *ngIf="f4.iddepartement.errors.required">id departement est obligatoire</div>
+  </div>
+</div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+  </div>
+
+</ng-template>
+
+<ngb-tabset>
+  <ngb-tab title="Extincteur">
+    <ng-template ngbTabContent>
+      <div class="list row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="motcle1"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="retrieveExtincteurMc()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openExtincteur(contentModalex)">
+            <i class="fa fa-plus"></i>Add Extincteur </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">sub type</th>
+        <th scope="col">image</th>
+        <th scope="col">moyen transport</th>
+        <th scope="col">depot</th>
+        <th scope="col">departement</th>
+        <th scope="col">emplacement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+      <tbody *ngIf="extincteurs">
+          <tr *ngFor="let item of extincteurs | paginate: { itemsPerPage: pageSize1,
+            currentPage: page1,
+            totalItems: count1 }">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>{{item.subtype}}</td>
+            <td>
+              <a href="#"><img *ngIf="item.image" class="card-img-top img-responsive"
+              src = "data:image/{{item.extension}};base64,{{item.image}}" 
+              style = "height :200px;width:fil-content"
+             alt=""></a>
+          </td>
+            <td >{{item.moyentransport?item.moyentransport.id:''}}</td>
+            <td>{{item.depot?item.depot.id:''}}</td>
+            <td>{{item.departement?item.departement.id:''}}</td>
+            <td>{{item.emplacement}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectExtincteur(item.id,contentModalex)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataExtincteur(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+        <div class="col-md-12">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange1($event)"
+          ></pagination-controls>
+        </div>
+        <div class="mt-3">
+          ...
+      
+          Items per Page:
+          <select (change)="handlePageSizeChange1($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Poteaux Incendie">
+    <ng-template ngbTabContent>
+      <div class="list row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="motcle2"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="retrievePoteauxMc()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openPoteaux(contentModalpi)">
+            <i class="fa fa-plus"></i>Add Poteaux </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">coleurpoteaux</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="poteauxincendies">
+          <tr *ngFor="let item of poteauxincendies | paginate: { itemsPerPage: pageSize2,
+            currentPage: page2,
+            totalItems: count2 }">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img *ngIf="item.image" class="card-img-top img-responsive"
+              src = "data:image/{{item.extension}};base64,{{item.image}}" 
+              style = "height :200px;width:fil-content"
+             alt=""></a>
+          </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.coleurpoteaux}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectPoteaux(item.id,contentModalpi)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataPoteaux(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+        <div class="col-md-12">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange2($event)"
+          ></pagination-controls>
+        </div>
+        <div class="mt-3">
+          ...
+      
+          Items per Page:
+          <select (change)="handlePageSizeChange2($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Robinet Incendie">
+    <ng-template ngbTabContent>
+      <div class="list row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="motcle4"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="retrieveRobinetMc()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openRobinet(contentModalri)">
+            <i class="fa fa-plus"></i>Add Robinet </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">length</th>
+        <th scope="col">diametre</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="robinetincendies">
+          <tr *ngFor="let item of robinetincendies | paginate: { itemsPerPage: pageSize4,
+            currentPage: page4,
+            totalItems: count4 }">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img *ngIf="item.image" class="card-img-top img-responsive"
+              src = "data:image/{{item.extension}};base64,{{item.image}}" 
+              style = "height :200px;width:fil-content"
+             alt=""></a>
+          </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.length}}</td>
+            <td>{{item.diametre}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectRobinet(item.id,contentModalri)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataRobinet(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+        <div class="col-md-12">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange4($event)"
+          ></pagination-controls>
+        </div>
+        <div class="mt-3">
+          ...
+      
+          Items per Page:
+          <select (change)="handlePageSizeChange4($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+    </ng-template>
+  </ngb-tab>
+  <ngb-tab title="Bouche Incendie">
+    <div>
+      Liste des equipements de lutte contre l'incendies
+    </div>
+    <ng-template ngbTabContent>
+      <div class="list row">
+        <div class="col-md-8">
+          <div class="input-group mb-3">
+            <input
+              type="date"
+              class="form-control"
+              [(ngModel)]="motcle3"
+            />
+            <div class="input-group-append">
+              <button
+                class="btn btn-outline-secondary"
+                type="button"
+                (click)="retrieveBoucheMc()"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+        <a class="btn btn-sm btn-success text-white pull-right" (click)="openBouche(contentModalbi)">
+            <i class="fa fa-plus"></i>Add Bouche </a>
+     </div>
+      <table class="table table-bordered table-responsive-sm table-responsive-md
+      table-responsive-lg t">
+       <thead>
+       <tr> 
+        <th scope="col">Description </th>
+        <th scope="col">number Serie</th>
+        <th scope="col">date Acquisition </th>
+        <th scope="col">date Maintenance</th>
+        <th scope="col">date Peremption </th>
+        <th scope="col">image</th>
+        <th scope="col">emplacement</th>
+        <th scope="col">nombrebouche</th>
+        <th scope="col">departement</th>
+       <th colspan="2">
+         Action
+       </th>
+       </tr>
+       </thead>
+        <tbody *ngIf="boucheincendies">
+          <tr *ngFor="let item of boucheincendies | paginate: { itemsPerPage: pageSize3,
+            currentPage: page3,
+            totalItems: count3 }">
+            <td>{{item.description}}</td>
+            <td>{{item.numberSerie}}</td>
+            <td>{{item.dateAcquisition}}</td>
+            <td>{{item.dateMaintenance}}</td>
+            <td>{{item.datePeremption}}</td>
+            <td>
+              <a href="#"><img *ngIf="item.image" class="card-img-top img-responsive"
+              src = "data:image/{{item.extension}};base64,{{item.image}}" 
+              style = "height :200px;width:fil-content"
+             alt=""></a>
+          </td>
+            <td>{{item.emplacement}}</td>
+            <td>{{item.nombrebouche}}</td>
+            <td>{{item.departement.id}}</td>
+            <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectBouche(item.id,contentModalbi)" >
+              <i class="fa fa-pencil-square-o" ></i></button></td>
+           <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataBouche(item.id)">
+            <i class="fa fa-trash-o"></i></button></td>
+          </tr>  
+        </tbody>
+        </table>
+        <div class="col-md-12">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange3($event)"
+          ></pagination-controls>
+        </div>
+        <div class="mt-3">
+          ...
+      
+          Items per Page:
+          <select (change)="handlePageSizeChange3($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+    </ng-template>
+  </ngb-tab>
+</ngb-tabset>

@@ -1,0 +1,51 @@
+<div class=" animated fadeIn">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="card">
+          <div class="card-header">
+            <i class="fa fa-align-justify"></i> notification par email
+          </div>
+          <div class="card-body">
+            <alert type="success">
+                <strong>vous pouvez envoyer une notification par email pour informer qu'il existe un accident</strong> 
+              </alert>
+            <button type="button" class="btn btn-info mr-1" data-toggle="modal" (click)="infoModal.show()">
+              notification
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+ 
+  
+  <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-info" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h4 class="modal-title">Inform Accident</h4>
+          <button type="button" class="close" (click)="infoModal.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+            <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label>Sujet</label>
+                  <input  type="text" placeholder="taper le sujet" formControlName="subject" id="subject"/>
+                </div>
+                <div class="form-group">
+                    <label>Description </label>
+                    <textarea class="form-control" formControlName="text" id="text"></textarea>
+                  </div>
+                  <div class="form-group">
+                  <button type="submit" class="btn btn-info">Envoyer</button>
+                  <button type="button" class="btn btn-secondary" (click)="infoModal.hide()">Close</button>
+                  </div>
+              </form>
+        </div>
+      </div>
+    </div>
+  </div>
+  

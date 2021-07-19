@@ -49,8 +49,8 @@
   </ul>
 </app-header>
 <div class="app-body">
-  <app-sidebar #appSidebar [fixed]="true" [display]="'lg'" [minimized]="sidebarMinimized" (minimizedChange)="toggleMinimize($event)">
-    <app-sidebar-nav [navItems]="navItems" [perfectScrollbar] [disabled]="appSidebar.minimized"></app-sidebar-nav>
+  <app-sidebar [fixed]="true" [display]="'lg'">
+    <app-sidebar-nav [navItems]="nav" [perfectScrollbar] [disabled]="sidebarMinimized" ></app-sidebar-nav>
     <app-sidebar-minimizer></app-sidebar-minimizer>
   </app-sidebar>
   <!-- Main content -->
@@ -80,6 +80,13 @@
       <!--</li>-->
     <!--</ol>-->
     <div class="container-fluid">
+      <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav" *ngFor="let item of rubriques">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="addSousRubrique(item)">{{item.libelle}}</a>
+          </li>
+        </ul>
+      </nav>
       <router-outlet></router-outlet>
     </div><!-- /.container-fluid -->
   </main>

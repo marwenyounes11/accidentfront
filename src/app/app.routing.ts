@@ -3,16 +3,23 @@ import { Routes, RouterModule } from '@angular/router';
 
 // Import Containers
 import { DefaultLayoutComponent } from './containers';
+import { AuthGuard } from './services/auth-guard.service';
+import { AdminGuard } from './views/administration/service/admin-guard.service';
+import { EquipGuard } from './views/equipement/service/equip-guard.service';
+import { P403Component } from './views/error/403.component';
 
 import { P404Component } from './views/error/404.component';
 import { P500Component } from './views/error/500.component';
 import { LoginComponent } from './views/login/login.component';
+import { ParamGuard } from './views/parametres/service/param-guard.service';
+import { RapportGuard } from './views/rapports/service/rapport-guard.service';
 import { RegisterComponent } from './views/register/register.component';
+import { StatGuard } from './views/statistiques/service/stat-guard.service';
 
 export const routes: Routes = [
   {
     path: '',
-    redirectTo: 'dashboard',
+    redirectTo: 'login',
     pathMatch: 'full',
   },
   {
@@ -20,6 +27,13 @@ export const routes: Routes = [
     component: P404Component,
     data: {
       title: 'Page 404'
+    }
+  },
+  {
+    path: '403',
+    component: P403Component,
+    data: {
+      title: 'Page 403'
     }
   },
   {
@@ -44,12 +58,40 @@ export const routes: Routes = [
     }
   },
   {
-    path: '',
+    path: 'home',
     component: DefaultLayoutComponent,
+canActivate: [AuthGuard],
     data: {
       title: 'Home'
     },
     children: [
+      {
+        path: 'administration',
+        canActivate: [AdminGuard],
+        loadChildren: () => import('./views/administration/administration.module').then(m => m.AdministrationModule)
+      },
+      {
+        path: 'parametres',
+        canActivate: [ParamGuard],
+        canActivateChild : [ParamGuard],
+        loadChildren: () => import('./views/parametres/parametres.module').then(m => m.ParametresModule)
+      },
+      {
+        path: 'equipement',
+        canActivate: [EquipGuard],
+        canActivateChild : [EquipGuard],
+        loadChildren: () => import('./views/equipement/equipement.module').then(m => m.EquipementModule)
+      },
+      {
+        path: 'rapports',
+        canActivate: [RapportGuard],
+        loadChildren: () => import('./views/rapports/rapports.module').then(m => m.RapportsModule)
+      },
+      {
+        path: 'statistiques',
+        canActivate: [StatGuard],
+        loadChildren: () => import('./views/statistiques/statistiques.module').then(m => m.StatistiquesModule)
+      },
       {
         path: 'base',
         loadChildren: () => import('./views/base/base.module').then(m => m.BaseModule)

@@ -1,0 +1,50 @@
+.row{
+  
+    margin-left: 50px;
+    
+    margin-top: 50px;
+    margin-bottom: 50px;
+   
+   
+   
+}
+
+#d1{
+  
+    width: 100%; 
+   
+}
+
+#d2{
+  
+    width: 100%; 
+   
+}
+
+#tab1 , #tab2{
+  
+    display: none; 
+   
+}
+
+button{
+  
+   margin-top: 10px;
+   
+}
+
+.pour{
+  
+    padding-bottom: 34px;
+   
+   
+}
+
+.ex{
+  
+    margin-bottom: 20px;
+     
+     
+  }
+  
+  

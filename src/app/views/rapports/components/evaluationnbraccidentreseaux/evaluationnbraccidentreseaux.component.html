@@ -1,0 +1,171 @@
+<div class="container-fluide">
+  <div class="row">
+    <div id="id1" class="col-xs-11 col-sm-11 col-md-11 col-lg-11 ">
+      <div class="card ">
+        <div class="card-header">
+          <i class="fa fa-align-justify"></i> Evolution des Accidents des routes et des collisions sur le réseaux du bus: {{date1}}-{{date2}}
+          
+          <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+            <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+          </div>
+        </div>
+        <div (collapsed)="collapsed($event)"
+        (expanded)="expanded($event)"
+        [collapse]="isCollapsed1"
+        class="card-body">
+  <div class="row"> 
+    
+    <div class="col-md-3">
+      <label> Saisir la première Date </label>
+      <input id="d1" type="number" class="form-control" 
+              [(ngModel)]="date1" />
+    </div>
+    <div class="col-md-3">
+      <label> Saisir la deuxième Date </label>
+      <input id="d2" type="number" class="form-control" 
+      [(ngModel)]="date2" />
+    </div>
+    <div class="col-md-3">
+    <label>choisir le réseaux </label>
+    <br>
+    <select id="rs" [(ngModel)]="reseaux" class="form-control" >
+      <option value=" --choisir une option--">
+        --choisir une option--
+      </option>
+      <option value="bus" >
+        bus
+      </option>
+      <option value="metro">
+         metro
+      </option>
+      <option value="tgm">
+         tgm
+      </option>
+    </select>
+  </div>
+    <div class="col-md-3">
+      <br>
+      <button (click)="chercher()" >afficher</button>
+    </div>
+   
+  </div>
+ 
+
+ 
+  <div class="pricing-header mx-auto ">
+          <div > 1- Accidents des collisions
+              <div id='tab1' class="table-responsive content">
+                <div class="ex">  
+                  <button  style="width: 205px;" class="btn btn-success" type="submit" value="ExportToExcel" name="action" (click)="runExcelc()">  
+                    <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel  
+                  </button>  
+                  <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToCsv" name="action" (click)="runCsvc()">  
+                    <i class="fa fa-csv"></i> Export To Csv  
+                  </button>  
+                  <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToPdf" name="action" (click)="runPdfc()">  
+                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export To Pdf  
+                  </button>  
+                  <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToWord" name="action" (click)="runWordc()">  
+                    <i class="fa fa-file-word-o" aria-hidden="true"></i> Export To Word  
+                  </button>  
+                  <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToHtml" name="action" (click)="runHtmlc()">  
+                    <i class="fa fa-file-code-o" aria-hidden="true"></i> Export To Html 
+                  </button>  
+                </div> 
+                   <table class="table table-bordered table-responsive-sm table-responsive-md
+                     table-responsive-lg t">
+                    <thead>
+                      <tr>
+                        <th scope="col" colspan="2" >Nombres Accidents</th>
+                        <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                        <th scope="col" colspan="2" >Nombres  de blessés</th>
+                        <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                        <th scope="col" colspan="2" >Nombres  de morts</th>
+                        <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                        <th scope="col" colspan="2" >Estimation du prix des dégâts matériels</th>
+                        <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                      </tr>
+                      <tr>
+                        <th scope="col" *ngFor="let item of nbrAccidentCollisionParAnner">{{item.annees}}</th>
+                        <th scope="col"  *ngFor="let item of nbrAccidentCollisionParAnner">{{item.annees}}</th>
+                        <th scope="col"  *ngFor="let item of nbrAccidentCollisionParAnner">{{item.annees}}</th>
+                        <th scope="col"  *ngFor="let item of nbrAccidentCollisionParAnner">{{item.annees}}</th>
+                      </tr>
+                    </thead>
+                     <tbody>
+                     <tr>
+                     <td *ngFor="let item of nbrAccidentCollisionParAnner">{{item.nbrAccident}}</td>
+                     <td>{{pourcentageAccidentCollision}} %</td>
+                     <td *ngFor="let item of nbrAccidentCollisionParAnner">{{item.nbrBlesser}}</td>
+                     <td>{{pourcentageBlesserCollision}} %</td>
+                     <td *ngFor="let item of nbrAccidentCollisionParAnner">{{item.nbrMorts}}</td>
+                     <td>{{pourcentageMortsCollision}} %</td>
+                     <td *ngFor="let item of nbrAccidentCollisionParAnner">{{item.estimationPrixDegat}}</td>
+                     <td>{{pourcentageEstimationCollision}} %</td>
+                    </tr>
+                          </tbody>
+                          </table>
+                        </div>
+                      </div>
+
+         <div > 1- Accidents des Routes
+            <div id='tab2' class="table-responsive content">
+              <div class="ex">  
+                <button  style="width: 205px;" class="btn btn-success" type="submit" value="ExportToExcel" name="action" (click)="runExcelr()">  
+                  <i class="fa fa-file-excel-o" aria-hidden="true"></i> Export To Excel  
+                </button>  
+                <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToCsv" name="action" (click)="runCsvr()">  
+                  <i class="fa fa-csv"></i> Export To Csv  
+                </button>  
+                <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToPdf" name="action" (click)="runPdfr()">  
+                  <i class="fa fa-file-pdf-o" aria-hidden="true"></i> Export To Pdf  
+                </button>  
+                <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToWord" name="action" (click)="runWordr()">  
+                  <i class="fa fa-file-word-o" aria-hidden="true"></i> Export To Word  
+                </button>  
+                <button style="width: 205px;" class="btn btn-success" type="submit" value="ExportToHtml" name="action" (click)="runHtmlr()">  
+                  <i class="fa fa-file-code-o" aria-hidden="true"></i> Export To Html 
+                </button>  
+              </div> 
+                             <table class="table table-bordered table-responsive-sm table-responsive-md
+                               table-responsive-lg t">
+                              <thead>
+                                <tr>
+                                  <th scope="col" colspan="2" >Nombres Accidents</th>
+                                  <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                                  <th scope="col" colspan="2" >Nombres  de blessés</th>
+                                  <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                                  <th scope="col" colspan="2" >Nombres  de morts</th>
+                                  <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                                  <th scope="col" colspan="2" >Estimation du prix des dégâts matériels</th>
+                                  <th class='pour' scope="col" rowspan="2" >pourcentage d'evolution</th>
+                                </tr>
+                                <tr>
+                                  <th scope="col" *ngFor="let item of nbrAccidentRouteParAnner">{{item.annees}}</th>
+                                  <th scope="col"  *ngFor="let item of nbrAccidentRouteParAnner">{{item.annees}}</th>
+                                  <th scope="col"  *ngFor="let item of nbrAccidentRouteParAnner">{{item.annees}}</th>
+                                  <th scope="col"  *ngFor="let item of nbrAccidentCollisionParAnner">{{item.annees}}</th>
+                                </tr>
+                              </thead>
+                               <tbody>
+                               <tr>
+                               <td *ngFor="let item of nbrAccidentRouteParAnner">{{item.nbrAccident}}</td>
+                               <td>{{pourcentageAccidentRoute}} %</td>
+                               <td *ngFor="let item of nbrAccidentRouteParAnner">{{item.nbrBlesser}}</td>
+                               <td>{{pourcentageBlesserRoute}} %</td>
+                               <td *ngFor="let item of nbrAccidentRouteParAnner">{{item.nbrMorts}}</td>
+                               <td>{{pourcentageMortsRoute}} %</td>
+                               <td *ngFor="let item of nbrAccidentRouteParAnner">{{item.estimationPrixDegat}}</td>
+                               <td>{{pourcentageEstimationRoute}} %</td>    
+                              </tr>
+                                    </tbody>
+                                    </table>
+                                  </div>
+                                </div>
+                      </div>
+                    
+
+                                  
+                      </div>
+                      </div>

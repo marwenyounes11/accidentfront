@@ -2,7 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {HttpClientModule , HttpClient} from '@angular/common/http';
+import {HttpClientModule , HttpClient, HTTP_INTERCEPTORS} from '@angular/common/http';
 import {ToastrModule } from 'ngx-toastr';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
@@ -10,7 +10,12 @@ import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
 };
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
+
+
+import { HttpClientInterceptor } from './services/http-client-interceptor';
 import { AppComponent } from './app.component';
 
 // Import containers
@@ -40,10 +45,16 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts';
+import { RxReactiveFormsModule } from '@rxweb/reactive-form-validators';
+import { P403Component } from './views/error/403.component';
 
 
 @NgModule({
   imports: [
+    FormsModule,
+    ReactiveFormsModule,
+    RxReactiveFormsModule,
+    ModalModule.forRoot(),
     BrowserModule,
     BrowserAnimationsModule,
     HttpClientModule,
@@ -61,16 +72,19 @@ import { ChartsModule } from 'ng2-charts';
   ],
   declarations: [
     AppComponent,
-    ...APP_CONTAINERS,
+    APP_CONTAINERS,
+    P403Component,
     P404Component,
     P500Component,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+   
   ],
   providers: [{
     provide: LocationStrategy,
     useClass: HashLocationStrategy
-  }],
+  },
+   {provide: HTTP_INTERCEPTORS, useClass: HttpClientInterceptor, multi: true}],
   bootstrap: [ AppComponent ]
 })
 export class AppModule { }

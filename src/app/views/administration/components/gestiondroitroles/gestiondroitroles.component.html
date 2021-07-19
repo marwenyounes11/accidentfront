@@ -1,0 +1,64 @@
+
+
+    <div class="container-fluide">
+      <div class="row">
+        <div id="id1" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+          <div class="card ">
+            <div class="card-header">
+              <i class="fa fa-edit"></i>{{pageTitle}}
+              <div class="card-header-actions">
+                <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+                <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+              </div>
+            </div>
+            <div (collapsed)="collapsed($event)"
+            (expanded)="expanded($event)"
+            [collapse]="isCollapsed1"
+            class="card-body">
+              <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+                  <label>Droit  </label>
+                  <select id="iddroit" formControlName="iddroit" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.iddroit.errors }">
+                    <option *ngFor="let d of  droits" [value]="d.id">{{d.action}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.iddroit.errors" class="invalid-feedback">
+                    <div *ngIf="f.iddroit.errors.required"> droit est obligatoire </div>
+                </div>
+                 </div>
+                 <div class="form-group">
+                  <label>Role  </label>
+                  <select id="idrole" formControlName="idrole" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.idrole.errors }">
+                    <option *ngFor="let r of  roles" [value]="r.id">{{r.name}}</option>
+                  </select>
+                  <div *ngIf="submitted && f.idrole.errors" class="invalid-feedback">
+                    <div *ngIf="f.idrole.errors.required">role est obligatoire </div>
+                </div>
+                 </div>
+                <button type="submit" class="btn btn-block btn-success">{{btnvalue}}</button>
+                <button type="reset" class="btn btn-block btn-dark" (click)="ResetForm()">Annuler</button>
+              </form>
+            </div>
+          </div>
+        </div>
+        <div id="id2" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+          <div class="card ">
+            <div class="card-header">
+              <i class="fa fa-align-justify"></i> Liste DroitRoles
+              <div class="card-header-actions">
+                <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse2()"><i class={{iconCollapse}}></i></button>
+                <button type="button" class="card-header-action btn btn-link btn-close"(click)="close2()"><i class="icon-close"></i></button>
+              </div>
+            </div>
+            <div (collapsed)="collapsed($event)"
+            (expanded)="expanded($event)"
+            [collapse]="isCollapsed2"
+            class="card-body">
+            <app-droitroles [droitroles]="droitroles" ></app-droitroles>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+

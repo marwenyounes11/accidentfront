@@ -1,0 +1,485 @@
+<ng-template   #contentModalbus let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Bus</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm1" (ngSubmit)="onSubmitBus()">
+      <div class="form-group">
+        <label>Gage </label>
+        <input type="text" class="form-control" formControlName="gage" id="gage"   [ngClass]="{ 'is-invalid': submitted && f1.gage.errors }" />
+        <div *ngIf="submitted && f1.gage.errors" class="invalid-feedback">
+            <div *ngIf="f1.gage.errors.gage">gage doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>immatriculation </label>
+        <input type="text" class="form-control" formControlName="immatriculation" id="immatriculation"   [ngClass]="{ 'is-invalid': submitted && f1.immatriculation.errors }" />
+        <div *ngIf="submitted && f1.immatriculation.errors" class="invalid-feedback">
+            <div *ngIf="f1.immatriculation.errors.required"> immatriculation est obligatoire</div>
+            <div *ngIf="f1.immatriculation.errors.alphaNumeric">immatriculation doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>mark </label>
+        <input type="text" class="form-control" formControlName="mark" id="mark"  [ngClass]="{ 'is-invalid': submitted && f1.mark.errors }" />
+        <div *ngIf="submitted && f1.mark.errors" class="invalid-feedback">
+            <div *ngIf="f1.mark.errors.mark">marque doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>model</label>
+        <input type="text" class="form-control" formControlName="model" id="model"  [ngClass]="{ 'is-invalid': submitted && f1.model.errors }" />
+        <div *ngIf="submitted && f1.model.errors" class="invalid-feedback">
+            <div *ngIf="f1.model.errors.model">modèle doit etre en alphabétique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>numTransport </label>
+        <input type="text" class="form-control" formControlName="numTransport" id="numTransport"   [ngClass]="{ 'is-invalid': submitted && f1.numTransport.errors }" />
+        <div *ngIf="submitted && f1.numTransport.errors" class="invalid-feedback">
+            <div *ngIf="f1.numTransport.errors.required"> numTransport est obligatoire</div>
+            <div *ngIf="f1.numTransport.errors.nt">numTransport doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id agent </label>
+        <select id="idagent" formControlName="idagent" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f1.idagent.errors }">
+          <option *ngFor="let ag of  agents" [value]="ag.id">{{ag.lastName}}</option>
+        </select>
+        <div *ngIf="submitted && f1.idagent.errors" class="invalid-feedback">
+          <div *ngIf="f1.idagent.errors.required">id agent est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+          <label>id depot  </label>
+          <select id="iddepot" formControlName="iddepot" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f1.iddepot.errors }">
+            <option *ngFor="let d of  depots" [value]="d.id">{{d.nameDepot}}</option>
+          </select>
+          <div *ngIf="submitted && f1.iddepot.errors" class="invalid-feedback">
+            <div *ngIf="f1.iddepot.errors.required">id depot est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id district  </label>
+        <select id="iddistrict" formControlName="iddistrict" class="form-control" [ngClass]="{ 'is-invalid': submitted && f1.iddistrict.errors }">
+          <option *ngFor="let d of  districts" [value]="d.id">{{d.nameDistrict}}</option>
+        </select>
+        <div *ngIf="submitted && f1.iddistrict.errors" class="invalid-feedback">
+          <div *ngIf="f1.iddistrict.errors.required">id district est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <label>id ligne  </label>
+        <select id="idligne" formControlName="idligne" class="form-control" [ngClass]="{ 'is-invalid': submitted && f1.idligne.errors }">
+          <option *ngFor="let l of  lignes" [value]="l.id">{{l.nameLigne}}</option>
+        </select>
+        <div *ngIf="submitted && f1.idligne.errors" class="invalid-feedback">
+          <div *ngIf="f1.idligne.errors.required">id ligne est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+
+  </div>
+</ng-template>
+
+<ng-template   #contentModalmetro let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Metros</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm2" (ngSubmit)="onSubmitMetro()">
+      <div class="form-group">
+        <label>Gage </label>
+        <input type="text" class="form-control" formControlName="gage" id="gage"   [ngClass]="{ 'is-invalid': submitted && f2.gage.errors }" />
+        <div *ngIf="submitted && f2.gage.errors" class="invalid-feedback">
+            <div *ngIf="f2.gage.errors.gage">gage doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>immatriculation </label>
+        <input type="text" class="form-control" formControlName="immatriculation" id="immatriculation"   [ngClass]="{ 'is-invalid': submitted && f2.immatriculation.errors }" />
+        <div *ngIf="submitted && f2.immatriculation.errors" class="invalid-feedback">
+            <div *ngIf="f2.immatriculation.errors.required"> immatriculation est obligatoire</div>
+            <div *ngIf="f2.immatriculation.errors.alphaNumeric">immatriculation doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>numTransport </label>
+        <input type="text" class="form-control" formControlName="numTransport" id="numTransport"   [ngClass]="{ 'is-invalid': submitted && f2.numTransport.errors }" />
+        <div *ngIf="submitted && f2.numTransport.errors" class="invalid-feedback">
+            <div *ngIf="f2.numTransport.errors.required"> numTransport est obligatoire</div>
+            <div *ngIf="f2.numTransport.errors.nt">numTransport doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id agent </label>
+        <select id="idagent" formControlName="idagent" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f2.idagent.errors }">
+          <option *ngFor="let ag of  agents" [value]="ag.id">{{ag.lastName}}</option>
+        </select>
+        <div *ngIf="submitted && f2.idagent.errors" class="invalid-feedback">
+          <div *ngIf="f2.idagent.errors.required">id agent est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+          <label>id depot  </label>
+          <select id="iddepot" formControlName="iddepot" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f2.iddepot.errors }">
+            <option *ngFor="let d of  depots" [value]="d.id">{{d.nameDepot}}</option>
+          </select>
+          <div *ngIf="submitted && f2.iddepot.errors" class="invalid-feedback">
+            <div *ngIf="f2.iddepot.errors.required">id depot est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id district  </label>
+        <select id="iddistrict" formControlName="iddistrict" class="form-control" [ngClass]="{ 'is-invalid': submitted && f2.iddistrict.errors }">
+          <option *ngFor="let d of  districts" [value]="d.id">{{d.nameDistrict}}</option>
+        </select>
+        <div *ngIf="submitted && f2.iddistrict.errors" class="invalid-feedback">
+          <div *ngIf="f2.iddistrict.errors.required">id district est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <label>id ligne  </label>
+        <select id="idligne" formControlName="idligne" class="form-control" [ngClass]="{ 'is-invalid': submitted && f2.idligne.errors }">
+          <option *ngFor="let l of  lignes" [value]="l.id">{{l.nameLigne}}</option>
+        </select>
+        <div *ngIf="submitted && f2.idligne.errors" class="invalid-feedback">
+          <div *ngIf="f2.idligne.errors.required">id ligne est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+
+  </div>
+</ng-template>
+
+<ng-template   #contentModaltgm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Gestion Tgm</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div  class="modal-body ">
+    <form [formGroup]="this.crudApi.dataForm3" (ngSubmit)="onSubmitTgm()">
+      <div class="form-group">
+        <label>Gage </label>
+        <input type="text" class="form-control" formControlName="gage" id="gage"   [ngClass]="{ 'is-invalid': submitted && f3.gage.errors }" />
+        <div *ngIf="submitted && f3.gage.errors" class="invalid-feedback">
+            <div *ngIf="f3.gage.errors.gage">gage doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>immatriculation </label>
+        <input type="text" class="form-control" formControlName="immatriculation" id="immatriculation"   [ngClass]="{ 'is-invalid': submitted && f3.immatriculation.errors }" />
+        <div *ngIf="submitted && f3.immatriculation.errors" class="invalid-feedback">
+            <div *ngIf="f3.immatriculation.errors.required"> immatriculation est obligatoire</div>
+            <div *ngIf="f3.immatriculation.errors.alphaNumeric">immatriculation doit etre en alphanumérique </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id agent </label>
+        <select id="idagent" formControlName="idagent" class="form-control"   [ngClass]="{ 'is-invalid': submitted && f3.idagent.errors }">
+          <option *ngFor="let ag of  agents" [value]="ag.id">{{ag.lastName}}</option>
+        </select>
+        <div *ngIf="submitted && f3.idagent.errors" class="invalid-feedback">
+          <div *ngIf="f3.idagent.errors.required">id agent est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+          <label>id depot  </label>
+          <select id="iddepot" formControlName="iddepot" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f3.iddepot.errors }">
+            <option *ngFor="let d of  depots" [value]="d.id">{{d.nameDepot}}</option>
+          </select>
+          <div *ngIf="submitted && f3.iddepot.errors" class="invalid-feedback">
+            <div *ngIf="f3.iddepot.errors.required">id depot est obligatoire</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id district  </label>
+        <select id="iddistrict" formControlName="iddistrict" class="form-control" [ngClass]="{ 'is-invalid': submitted && f3.iddistrict.errors }">
+          <option *ngFor="let d of  districts" [value]="d.id">{{d.nameDistrict}}</option>
+        </select>
+        <div *ngIf="submitted && f3.iddistrict.errors" class="invalid-feedback">
+          <div *ngIf="f3.iddistrict.errors.required">id district est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <label>id ligne  </label>
+        <select id="idligne" formControlName="idligne" class="form-control" [ngClass]="{ 'is-invalid': submitted && f3.idligne.errors }">
+          <option *ngFor="let l of  lignes" [value]="l.id">{{l.nameLigne}}</option>
+        </select>
+        <div *ngIf="submitted && f3.idligne.errors" class="invalid-feedback">
+          <div *ngIf="f3.idligne.errors.required">id ligne est obligatoire</div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark">Annuler</button>
+      </div>
+    </form>
+
+  </div>
+</ng-template>
+
+  <ngb-tabset>
+    <ngb-tab title="Bus">
+      <ng-template ngbTabContent>
+        <div class="list row">
+          <div class="col-md-8">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="recherche par sous type accident"
+                [(ngModel)]="motcle1"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="retrieveBusMc()"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+          <a class="btn btn-sm btn-success text-white pull-right" (click)="openBus(contentModalbus)">
+              <i class="fa fa-plus"></i>Add Bus </a>
+       </div>
+  <table class="table table-bordered table-responsive-sm table-responsive-md
+ table-responsive-lg t">
+  <thead>
+  <tr>
+  <th scope="col">Gage</th>
+  <th scope="col">Immatriculation </th>
+  <th scope="col">Mark</th>
+  <th scope="col">Model </th>
+  <th scope="col">NumTransport</th>
+  <th scope="col">Agent </th>
+  <th scope="col">Ligne </th>
+  <th scope="col">Depot</th>
+  <th scope="col">District</th>
+  <th colspan="2">
+    Action
+  </th>
+  </tr>
+  </thead>
+  <tbody *ngIf="buss">
+  <tr *ngFor="let item of buss | paginate: { itemsPerPage: pageSize1,
+    currentPage: page1,
+    totalItems: count1 }">
+  <td>{{item.gage}}</td>
+  <td>{{item.immatriculation}}</td>
+  <td>{{item.mark}}</td>
+  <td>{{item.model}}</td>
+  <td>{{item.numTransport}}</td>
+  <td>{{item.agent.id}}</td>
+  <td>{{item.ligne.id}}</td>
+  <td>{{item.depot.id}}</td>
+  <td>{{item.district.id}}</td>
+  <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectBus(item.id,contentModalbus)" >
+    <i class="fa fa-pencil-square-o" ></i></button></td>
+ <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataBus(item.id)">
+    <i class="fa fa-trash-o"></i></button></td>
+     </tr>
+       </tbody>
+       </table>
+       <div class="col-md-12">
+        <pagination-controls
+          previousLabel="Prev"
+          nextLabel="Next"
+          responsive="true"
+          (pageChange)="handlePageChange1($event)"
+        ></pagination-controls>
+      </div>
+      <div class="mt-3">
+        ...
+    
+        Items per Page:
+        <select (change)="handlePageSizeChange1($event)">
+          <option *ngFor="let size of pageSizes" [value]="size">
+            {{ size }}
+          </option>
+        </select>
+      </div>
+      </ng-template>
+    </ngb-tab>
+   <ngb-tab title="Metros">
+      <ng-template ngbTabContent>
+        <div class="list row">
+          <div class="col-md-8">
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="recherche par sous type accident"
+                [(ngModel)]="motcle2"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-outline-secondary"
+                  type="button"
+                  (click)="retrieveMetrosMc()"
+                >
+                  Search
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+          <a class="btn btn-sm btn-success text-white pull-right" (click)="openMetro(contentModalmetro)">
+              <i class="fa fa-plus"></i>Add Metro </a>
+       </div>
+       <table class="table table-bordered table-responsive-sm table-responsive-md
+       table-responsive-lg t">
+        <thead>
+        <tr>
+        <th scope="col">Gage</th>
+        <th scope="col">Immatriculation </th>
+        <th scope="col">NumTransport</th>
+        <th scope="col">Agent </th>
+        <th scope="col">Ligne </th>
+        <th scope="col">Depot</th>
+        <th scope="col">District</th>
+        <th colspan="2">
+          Action
+        </th>
+        </tr>
+        </thead>
+        <tbody *ngIf="metros">
+        <tr *ngFor="let item of metros | paginate: { itemsPerPage: pageSize2,
+          currentPage: page2,
+          totalItems: count2 }">
+        <td>{{item.gage}}</td>
+        <td>{{item.immatriculation}}</td>
+        <td>{{item.numTransport}}</td>
+        <td>{{item.agent.id}}</td>
+        <td>{{item.ligne.id}}</td>
+        <td>{{item.depot.id}}</td>
+        <td>{{item.district.id}}</td>
+        <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectMetro(item.id,contentModalmetro)" >
+          <i class="fa fa-pencil-square-o" ></i></button></td>
+       <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataMetros(item.id)">
+          <i class="fa fa-trash-o"></i></button></td>
+           </tr>
+             </tbody>
+             </table>
+             <div class="col-md-12">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                responsive="true"
+                (pageChange)="handlePageChange2($event)"
+              ></pagination-controls>
+            </div>
+            <div class="mt-3">
+              ...
+          
+              Items per Page:
+              <select (change)="handlePageSizeChange2($event)">
+                <option *ngFor="let size of pageSizes" [value]="size">
+                  {{ size }}
+                </option>
+              </select>
+            </div>
+            </ng-template>
+          </ngb-tab>
+          <ngb-tab title="Tgm">
+            <ng-template ngbTabContent>
+              <div class="list row">
+                <div class="col-md-8">
+                  <div class="input-group mb-3">
+                    <input
+                      type="text"
+                      class="form-control"
+                      placeholder="recherche par sous type accident"
+                      [(ngModel)]="motcle2"
+                    />
+                    <div class="input-group-append">
+                      <button
+                        class="btn btn-outline-secondary"
+                        type="button"
+                        (click)="retrieveTgmMc()"
+                      >
+                        Search
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="l" fxFlex fxLayout fxLayoutAlign="end" fxHide.xs>
+                <a class="btn btn-sm btn-success text-white pull-right" (click)="openTgm(contentModaltgm)">
+                    <i class="fa fa-plus"></i>Add Tgm </a>
+             </div>
+             <table class="table table-bordered table-responsive-sm table-responsive-md
+             table-responsive-lg t">
+              <thead>
+              <tr>
+              <th scope="col">Gage</th>
+              <th scope="col">Immatriculation </th>
+              <th scope="col">Agent </th>
+              <th scope="col">Ligne </th>
+              <th scope="col">Depot</th>
+              <th scope="col">District</th>
+              <th colspan="2">
+                Action
+              </th>
+              </tr>
+              </thead>
+              <tbody *ngIf="tgms">
+              <tr *ngFor="let item of tgms | paginate: { itemsPerPage: pageSize3,
+                currentPage: page3,
+                totalItems: count3 }">
+              <td>{{item.gage}}</td>
+              <td>{{item.immatriculation}}</td>
+              <td>{{item.agent.id}}</td>
+              <td>{{item.ligne.id}}</td>
+              <td>{{item.depot.id}}</td>
+              <td>{{item.district.id}}</td>
+              <td><button class="btn btn-warning btn btn-outline-dark ml-1"  (click) = "selectTgm(item.id,contentModaltgm)">
+                <i class="fa fa-pencil-square-o" ></i></button></td>
+             <td><button class="btn btn-danger btn btn-outline-dark ml-1" (click) = "removeDataTgm(item.id)">
+                <i class="fa fa-trash-o"></i></button></td>
+                 </tr>
+          </tbody>
+        </table>
+        <div class="col-md-12">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange3($event)"
+          ></pagination-controls>
+        </div>
+        <div class="mt-3">
+          ...
+      
+          Items per Page:
+          <select (change)="handlePageSizeChange3($event)">
+            <option *ngFor="let size of pageSizes" [value]="size">
+              {{ size }}
+            </option>
+          </select>
+        </div>
+      </ng-template>
+    </ngb-tab>
+  </ngb-tabset>
+                      

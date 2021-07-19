@@ -1,0 +1,87 @@
+<div class="container-fluide">
+  <div class="row">
+    <div class="container-fluide">
+      <div class="row">
+    <div id="id1" class="col-xs-5 col-sm-5 col-md-5 col-lg-5 ">
+      <div class="card ">
+        <div class="card-header">
+          <i class="fa fa-edit"></i>{{pageTitle}}
+          <div class="card-header-actions">
+            <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse1()"><i class={{iconCollapse}}></i></button>
+            <button type="button" class="card-header-action btn btn-link btn-close"(click)="close1()"><i class="icon-close"></i></button>
+          </div>
+        </div>
+        <div (collapsed)="collapsed($event)"
+        (expanded)="expanded($event)"
+        [collapse]="isCollapsed1"
+        class="card-body">
+ 
+    <form [formGroup]="this.crudApi.dataForm" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+          <label>id Accident  </label>
+          <select id="idaccident" formControlName="idaccident" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.idaccident.errors }">
+            <option *ngFor="let d of  accidents" [value]="d.id">{{d.description}}</option>
+          </select>
+          <div *ngIf="submitted && f.idaccident.errors" class="invalid-feedback">
+            <div *ngIf="f.idaccident.errors.required">idaccident is required</div>
+        </div>
+      </div>
+      <div class="form-group">
+        <label>id Source inform  </label>
+        <select id="idsourceinform" formControlName="idsourceinform" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.idsourceinform.errors }">
+          <option *ngFor="let s of  sourceinforms._embedded.sourceInforms" [value]="s.id">{{s.lastName}}</option>
+        </select>
+        <div *ngIf="submitted && f.idsourceinform.errors" class="invalid-feedback">
+          <div *ngIf="f.idsourceinform.errors.required">id source inform is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Date Information </label>
+      <input type="date" class="form-control" formControlName="dateInformation" id="dateInformation"   [ngClass]="{ 'is-invalid': submitted && f.dateInformation.errors }" />
+      <div *ngIf="submitted && f.dateInformation.errors" class="invalid-feedback">
+          <div *ngIf="f.dateInformation.errors.required"> date is required</div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>heure  Information</label>
+      <input type="time" class="form-control" formControlName="heureInformation" id="heureInformation"   [ngClass]="{ 'is-invalid': submitted && f.heureInformation.errors }" />
+      <div *ngIf="submitted && f.heureInformation.errors" class="invalid-feedback">
+          <div *ngIf="f.heureInformation.errors.required"> heure is required</div>
+          <div *ngIf="f.heureInformation.errors.time"> heure doit etre en time </div>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Description </label>
+      <textarea class="form-control" formControlName="description" id="description"   [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+      <div *ngIf="submitted && f.description.errors" class="invalid-feedback">
+          <div *ngIf="f.description.errors.required"> Description is required</div>
+          <div *ngIf="f.description.errors.regex"> Description doit etre en alphabétique </div>
+      </div>
+    </div>
+      <div class="form-group">
+        <button type="submit" class="btn btn-dark"><i class="fa fa-database"></i> Submit</button>
+        <button type="reset" class="btn btn-dark" (click)="ResetForm()">Annuler</button>     
+       </div>
+    </form>
+  </div>
+</div>
+</div>
+<div id="id2" class="col-xs-7 col-sm-7 col-md-7 col-lg-7">
+<div class="card ">
+  <div class="card-header">
+    <i class="fa fa-align-justify"></i> Liste Accident Information
+    <div class="card-header-actions">
+      <button type="button" class="card-header-action btn btn-link btn-minimize"(click)="toggleCollapse2()"><i class={{iconCollapse}}></i></button>
+      <button type="button" class="card-header-action btn btn-link btn-close"(click)="close2()"><i class="icon-close"></i></button>
+    </div>
+  </div>
+  <div (collapsed)="collapsed($event)"
+  (expanded)="expanded($event)"
+  [collapse]="isCollapsed2"
+  class="card-body">
+    <app-accidentinform [accidentinforms]="accidentinforms" [page1]="page1" [count1]="count1" [pageSize1]="pageSize1"></app-accidentinform>
+  </div>
+</div>
+</div>
+</div>
+</div>

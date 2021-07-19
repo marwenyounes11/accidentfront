@@ -1,0 +1,50 @@
+<div class="container">
+ <div class="row">
+  <div id="id1" class="col-xs-12 col-sm-12 col-md-12 col-lg-12 ">
+    <div class="card">
+    <div class="card-header">
+        <i class="fa fa-align-justify"></i> Gestion Profile
+    </div>
+    <div class="card-body">
+      <nav class="navbar navbar-expand-sm bg-light navbar-light">
+        <ul class="navbar-nav" *ngFor="let item of rubriques">
+          <li class="nav-item active">
+            <a class="nav-link" (click)="getSousRubrique(item,checkboxElement)">{{item.libelle}}</a>
+          </li>
+        </ul>
+      </nav>
+    <table id="t" class="table ">
+    <thead>
+    <tr>
+    <th scope="col">Sous Rubrique</th>
+    <th scope="col">Fonctionnalités </th>
+    <th colspan="2" *ngFor="let item of roles "  [id]="item.id" scope="col" #roleElement>{{item.name}} <i (click)="removeData(item.id)" class="fa fa-trash" aria-hidden="true"></i> 
+      
+    </th>
+    <th colspan="2">
+      <label id="l" (click)="addInput()">Nouveaux Profile </label>
+        <input type="text" class="form-control" name="name" id="name"  [(ngModel)]="name"> 
+        <i (click)="addData()" id="ic" class="fa fa-check-square"></i>
+    </th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr  *ngFor="let sr of sousRubriques "  [id]="sr.id" #sousrubriqueElement>
+    <td >{{sr.libelle}}</td>
+    <td  ><div *ngFor="let d of droits">{{d.action}}</div></td>
+    <td colspan="2"  *ngFor="let r of roles " > 
+      <div class="form-check" *ngFor="let dt of droits  "   > 
+        <input class="form-check-input" type="checkbox" [value]="sr.id+','+r.id"  [id]="dt.id"   (change)="changeDroits(dt,sr.id,r)"  #checkboxElement>
+        <label class="form-check-label">
+        </label>
+    </div>
+  </td>
+
+  </tr>
+    </tbody>
+    </table>
+       </div>
+     </div>
+    </div>
+  </div>
+</div>
